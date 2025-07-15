@@ -316,6 +316,7 @@ backend/models/*.h5
 data/
 datasets/
 *.csv
+!dataset/labels.csv
 *.json
 *.xlsx
 
