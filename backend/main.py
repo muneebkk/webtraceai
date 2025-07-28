@@ -1,3 +1,6 @@
+# Hassan Hadi: Main FastAPI application entry point
+# Focus: Set up FastAPI project structure and handle /predict route
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import router
