@@ -17,7 +17,7 @@ import cv2
 # Add the app directory to the path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'app'))
 
-from feature_extract import FeatureExtractor
+from app.feature_extract import FeatureExtractor
 
 class SimpleModelTrainer:
     def __init__(self):
