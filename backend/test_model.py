@@ -21,6 +21,18 @@ def test_model():
     extractor = FeatureExtractor()
     model_loader = ModelLoader()
     
+    # Load the trained model first
+    print("📂 Loading trained model...")
+    model_loaded = model_loader.load_model("model.pkl")
+    
+    if not model_loaded:
+        print("❌ Failed to load model. Make sure you have trained a model first.")
+        print("💡 Run: python train_simple_model.py")
+        return
+    
+    print("✅ Model loaded successfully!")
+    print()
+    
     # Test with a sample AI image
     ai_image_path = "../dataset/images/ai/V0_001.png"
     if os.path.exists(ai_image_path):
@@ -33,6 +45,8 @@ def test_model():
         print(f"   Confidence: {prediction['confidence']:.3f}")
         print(f"   Model Status: {prediction['model_status']}")
         print()
+    else:
+        print(f"❌ AI test image not found: {ai_image_path}")
     
     # Test with a sample human image
     human_image_path = "../dataset/images/human/human_001.png"
@@ -46,6 +60,8 @@ def test_model():
         print(f"   Confidence: {prediction['confidence']:.3f}")
         print(f"   Model Status: {prediction['model_status']}")
         print()
+    else:
+        print(f"❌ Human test image not found: {human_image_path}")
     
     # Show model info
     print("📊 Model Information:")
