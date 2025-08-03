@@ -48,19 +48,26 @@ function App() {
   }
 
   const handleAnalyze = async () => {
-    if (!selectedFile) return
+    // Allow analysis with either screenshot OR HTML code
+    if (!selectedFile && !htmlCode.trim()) {
+      alert("Please provide either a screenshot or HTML code for analysis")
+      return
+    }
 
     setIsAnalyzing(true)
 
     try {
       const formData = new FormData()
-      formData.append("screenshot", selectedFile)
+      
+      if (selectedFile) {
+        formData.append("screenshot", selectedFile)
+      }
       
       if (htmlCode.trim()) {
         formData.append("html_content", htmlCode)
       }
 
-      const response = await axios.post("http://localhost:8000/api/analyze", formData, {
+      const response = await axios.post("http://localhost:8000/api/predict", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -150,8 +157,8 @@ function App() {
         <div className="text-center mb-12">
           <h2 className="text-5xl font-bold mb-4 text-white">Detect AI-Generated Websites</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Upload a screenshot and HTML code to analyze whether a website was created using AI tools or coded by
-            humans.
+            Upload a screenshot, HTML code, or both to analyze whether a website was created using AI tools or coded by
+            humans. More data = better accuracy!
           </p>
         </div>
 
@@ -239,7 +246,7 @@ function App() {
             {/* Analyze Button */}
             <button
               onClick={handleAnalyze}
-              disabled={!selectedFile || isAnalyzing}
+              disabled={(!selectedFile && !htmlCode.trim()) || isAnalyzing}
               className="w-full py-4 bg-white text-black hover:bg-gray-200 disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed rounded-xl font-semibold text-lg transition-all flex items-center justify-center gap-2"
             >
               {isAnalyzing ? (
