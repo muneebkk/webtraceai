@@ -18,14 +18,23 @@ class ModelLoader:
             "description": "AI-generated website detection model",
             "status": "not_loaded"
         }
+        
+        # Try to load model automatically
+        self.load_model()
     
-    def load_model(self, model_path="../model.pkl"):
+    def load_model(self, model_path="model.pkl"):
         """Load the trained model from pickle file"""
         try:
             if not os.path.exists(model_path):
                 print(f"❌ Model file not found: {model_path}")
                 print("💡 Train a model first using: python train_simple_model.py")
                 return False
+            
+            # Add current directory to Python path to handle import issues
+            import sys
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            if current_dir not in sys.path:
+                sys.path.insert(0, current_dir)
             
             # Load the trained model
             with open(model_path, 'rb') as f:
@@ -60,15 +69,23 @@ class ModelLoader:
         try:
             if not self.model_loaded or self.model is None:
                 # Fallback to mock predictions if no model loaded
+                print("⚠️  Using mock predictions (no trained model available)")
                 return self._mock_predict(features)
             
             # Use the real trained model
             features_array = [features.get(name, 0) for name in self.feature_names]
-            prediction = self.model.predict([features_array])[0]
-            probability = self.model.predict_proba([features_array])[0]
+            
+            # Convert to numpy array and reshape for sklearn
+            import numpy as np
+            X = np.array(features_array).reshape(1, -1)
+            
+            prediction = self.model.predict(X)[0]
+            probability = self.model.predict_proba(X)[0]
             
             is_ai_generated = bool(prediction)
             confidence = max(probability)
+            
+            print(f"🤖 Model Prediction: {'AI-Generated' if is_ai_generated else 'Human-Coded'} (confidence: {confidence:.3f})")
             
             return {
                 "is_ai_generated": is_ai_generated,
@@ -88,23 +105,38 @@ class ModelLoader:
     
     def _mock_predict(self, features: Dict) -> Dict[str, Any]:
         """Mock prediction logic for when no trained model is available"""
-        # Simple heuristic based on basic features
+        # Enhanced heuristic using both visual and HTML features
         width = features.get('width', 800)
         height = features.get('height', 600)
         aspect_ratio = features.get('aspect_ratio', 1.33)
         
-        # Mock prediction logic
+        # HTML-based indicators
+        has_ai_signatures = features.get('has_ai_signatures', 0)
+        html_length = features.get('html_length', 0)
+        css_complexity = features.get('css_complexity', 0)
+        
+        # Enhanced prediction logic
+        ai_score = 0
+        
+        # Visual indicators
         if aspect_ratio > 1.5:  # Wide screenshots might be AI-generated
-            is_ai_generated = True
-            confidence = 0.75
-        elif width < 500 or height < 300:  # Small images might be human-coded
-            is_ai_generated = False
-            confidence = 0.65
-        else:
-            # Random prediction for demo
-            import random
-            is_ai_generated = random.choice([True, False])
-            confidence = random.uniform(0.5, 0.9)
+            ai_score += 0.3
+        if width < 500 or height < 300:  # Small images might be human-coded
+            ai_score -= 0.2
+        
+        # HTML indicators
+        if has_ai_signatures:
+            ai_score += 0.4  # Strong indicator
+        if html_length > 5000:  # Long HTML might be AI-generated
+            ai_score += 0.1
+        if css_complexity > 20:  # High CSS complexity might be AI
+            ai_score += 0.1
+        
+        # Determine prediction
+        is_ai_generated = ai_score > 0.2
+        confidence = min(0.95, max(0.5, abs(ai_score) + 0.5))
+        
+        print(f"🎲 Mock Prediction: {'AI-Generated' if is_ai_generated else 'Human-Coded'} (confidence: {confidence:.3f})")
         
         return {
             "is_ai_generated": is_ai_generated,

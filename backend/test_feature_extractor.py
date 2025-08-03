@@ -98,6 +98,7 @@ def test_with_real_image(image_path):
     extractor = FeatureExtractor()
     
     # Extract features
+    print("📊 Extracting features...")
     features = extractor.extract_image_features(img)
     
     # Display results
@@ -114,18 +115,20 @@ def test_with_real_image(image_path):
     
     return features
 
-if __name__ == "__main__":
-    print("🚀 WebTrace AI - Feature Extractor Test")
-    print("=" * 50)
+def main():
+    print("🚀 WebTrace AI - Feature Extractor Testing")
+    print("=" * 60)
     
-    # Test with generated image
-    features = test_with_sample_image()
+    # Test with sample image
+    test_with_sample_image()
     
     # Test with real image if provided
     if len(sys.argv) > 1:
         image_path = sys.argv[1]
         test_with_real_image(image_path)
-    
-    print("\n🎉 Feature extraction test completed!")
-    print("\n💡 To test with a real image:")
-    print("   python test_feature_extractor.py path/to/your/image.jpg") 
+    else:
+        print("\n💡 To test with a real image, run:")
+        print(f"   python test_feature_extractor.py <image_path>")
+
+if __name__ == "__main__":
+    main() 
