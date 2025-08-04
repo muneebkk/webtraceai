@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jerry Tom - Python/Go Programmer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#7B61FF',
+                        accent: '#00D1FF',
+                        dark: '#1D2939',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-pulse-slow {
+                animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+            .animate-gradient {
+                background-size: 200% 200%;
+                animation: gradient 8s ease infinite;
+            }
+            .bg-grid {
+                background-image: linear-gradient(rgba(22, 93, 255, 0.05) 1px, transparent 1px),
+                                  linear-gradient(90deg, rgba(22, 93, 255, 0.05) 1px, transparent 1px);
+                background-size: 20px 20px;
+            }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="font-inter bg-light text-dark antialiased">
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold text-white text-shadow">
+                Jerry<span class="text-accent">Tom</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-white hover:text-accent transition-colors">About</a>
+                <a href="#education" class="text-white hover:text-accent transition-colors">Education</a>
+                <a href="#skills" class="text-white hover:text-accent transition-colors">Skills</a>
+                <a href="#contact" class="text-white hover:text-accent transition-colors">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                <i class="fa fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-dark/95 backdrop-blur-md absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#about" class="text-white hover:text-accent transition-colors py-2">About</a>
+                <a href="#education" class="text-white hover:text-accent transition-colors py-2">Education</a>
+                <a href="#skills" class="text-white hover:text-accent transition-colors py-2">Skills</a>
+                <a href="#contact" class="text-white hover:text-accent transition-colors py-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-dark via-primary/80 to-secondary/80 animate-gradient overflow-hidden">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 bg-grid opacity-40"></div>
+        
+        <!-- Animated Circles -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute w-64 h-64 rounded-full bg-primary/20 -top-10 -left-10 animate-pulse-slow blur-xl"></div>
+            <div class="absolute w-96 h-96 rounded-full bg-secondary/20 bottom-10 right-10 animate-pulse-slow blur-xl"></div>
+            <div class="absolute w-40 h-40 rounded-full bg-accent/20 top-1/3 right-1/4 animate-float blur-lg"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 z-10 text-center">
+            <div class="relative inline-block mb-8">
+                <div class="w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden border-4 border-accent/50 shadow-lg shadow-primary/20">
+                    <img src="https://i.postimg.cc/RhNMJTxV/Brush1.png" alt="Jerry Tom's profile photo" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-3 -right-3 w-16 h-16 bg-accent rounded-full flex items-center justify-center shadow-lg">
+                    <span class="text-dark font-bold text-lg">Hi!</span>
+                </div>
+            </div>
+            
+            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold text-white mb-4 text-shadow-lg leading-tight">
+                Hello, I'm <span class="text-accent">Jerry Tom</span>
+            </h1>
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] text-white/90 mb-8 text-shadow">
+                Python & Go Programmer
+            </h2>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <a href="#contact" class="px-8 py-3 bg-accent hover:bg-accent/90 text-dark font-semibold rounded-full shadow-lg shadow-accent/20 transition-all hover:translate-y-[-2px] hover:shadow-xl">
+                    Get In Touch
+                </a>
+                <a href="#projects" class="px-8 py-3 bg-transparent border-2 border-white/30 hover:border-white/50 text-white font-semibold rounded-full shadow-lg transition-all hover:translate-y-[-2px]">
+                    My Work
+                </a>
+            </div>
+            
+            <div class="flex justify-center space-x-6 text-2xl">
+                <a href="mailto:jerrytomfaker@outlook.com" class="text-white hover:text-accent transition-colors">
+                    <i class="fa fa-envelope-o"></i>
+                </a>
+                <a href="https://github.com/jerrytomhub" class="text-white hover:text-accent transition-colors">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a href="https://x.com/jerrytommsg" class="text-white hover:text-accent transition-colors">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com/jerrytomins/" class="text-white hover:text-accent transition-colors">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <a href="#about" class="text-white/70 hover:text-white">
+                    <i class="fa fa-angle-down text-3xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">About Me</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="absolute -top-6 -left-6 w-64 h-64 bg-primary/5 rounded-full -z-10"></div>
+                    <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-accent/5 rounded-full -z-10"></div>
+                    
+                    <div class="bg-gradient-to-br from-primary/10 to-accent/10 p-6 rounded-2xl shadow-lg">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-xl shadow-md">
+                                <p class="text-sm text-gray-500">Full Name</p>
+                                <p class="font-semibold">Jerry Tom</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md">
+                                <p class="text-sm text-gray-500">Birthday</p>
+                                <p class="font-semibold">November 2, 2001</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md">
+                                <p class="text-sm text-gray-500">Nationality</p>
+                                <p class="font-semibold">Singaporean</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md col-span-2">
+                                <p class="text-sm text-gray-500">Email</p>
+                                <p class="font-semibold">jerrytomfaker@outlook.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-primary">Hello! I'm Jerry Tom</h3>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        I'm a passionate Python and Go programmer based in Singapore, constantly exploring the fascinating world of software development. My journey in programming began during my university days, and since then, I've been on an exciting adventure to create efficient, scalable, and innovative solutions.
+                    </p>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        I specialize in backend development, but I also enjoy diving into full-stack projects. My goal is to leverage technology to solve real-world problems and create meaningful experiences.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">My Expertise</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-primary mr-2"></i>
+                                    <span>Backend Development</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-primary mr-2"></i>
+                                    <span>API Design & Integration</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-primary mr-2"></i>
+                                    <span>Database Modeling</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-primary mr-2"></i>
+                                    <span>Cloud Infrastructure</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">My Interests</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-primary mr-2"></i>
+                                    <span>Machine Learning</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-primary mr-2"></i>
+                                    <span>Distributed Systems</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-primary mr-2"></i>
+                                    <span>DevOps</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check text-primary mr-2"></i>
+                                    <span>Open Source</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">Education</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-primary/20 transform md:-translate-x-1/2"></div>
+                
+                <!-- Timeline Items -->
+                <div class="space-y-12 relative">
+                    <!-- University -->
+                    <div class="flex flex-col md:flex-row items-center md:items-start">
+                        <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-4 md:mt-0">
+                            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-bold text-primary mb-2">National University of Singapore (NUS)</h3>
+                                <p class="text-gray-500 mb-3">Computer Science</p>
+                                <p class="text-gray-700">
+                                    During my time at NUS, I delved deep into various aspects of computer science, including algorithms, data structures, artificial intelligence, and software engineering. I also had the opportunity to work on several exciting projects that enhanced my problem-solving and programming skills.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="order-1 md:order-2 flex justify-center md:justify-start mb-4 md:mb-0 z-10">
+                            <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg">
+                                <i class="fa fa-graduation-cap text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+                    </div>
+                    
+                    <!-- High School -->
+                    <div class="flex flex-col md:flex-row items-center md:items-start">
+                        <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
+                        <div class="order-1 md:order-2 flex justify-center md:justify-start mb-4 md:mb-0 z-10">
+                            <div class="w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center shadow-lg">
+                                <i class="fa fa-book text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-12 order-2 md:order-3 mt-4 md:mt-0">
+                            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-bold text-secondary mb-2">Chung Cheng High School (Main)</h3>
+                                <p class="text-gray-500 mb-3">General Certificate of Education Ordinary Level (GCE O-Level)</p>
+                                <p class="text-gray-700">
+                                    My secondary school education at Chung Cheng High School provided a strong foundation in both academic and non-academic aspects. I developed my critical thinking, teamwork, and leadership skills through various co-curricular activities and academic challenges.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Primary School -->
+                    <div class="flex flex-col md:flex-row items-center md:items-start">
+                        <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-4 md:mt-0">
+                            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-bold text-accent mb-2">Nan Hua Primary School</h3>
+                                <p class="text-gray-500 mb-3">Primary Education</p>
+                                <p class="text-gray-700">
+                                    My journey in education began at Nan Hua Primary School, where I discovered my passion for learning and technology. The school's holistic approach to education helped me develop a well-rounded set of skills and interests that continue to influence my choices today.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="order-1 md:order-2 flex justify-center md:justify-start mb-4 md:mb-0 z-10">
+                            <div class="w-12 h-12 rounded-full bg-accent text-dark flex items-center justify-center shadow-lg">
+                                <i class="fa fa-child text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-dark mb-4">My Skills</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-primary">Programming Languages</h3>
+                    
+                    <!-- Python -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Python</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Go -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Go</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- JavaScript -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">JavaScript</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- SQL -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">SQL</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-6 text-primary mt-12">Frameworks & Libraries</h3>
+                    
+                    <!-- Django -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Django</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-secondary h-2.5 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Flask -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Flask</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-secondary h-2.5 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Gin -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Gin</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-secondary h-2.5 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- React -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">React</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-secondary h-2.5 rounded-full" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-primary">Tools & Technologies</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3">
+                                    <i class="fa fa-database"></i>
+                                </div>
+                                <h4 class="font-semibold">Databases</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm">PostgreSQL, MySQL, MongoDB, Redis</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3">
+                                    <i class="fa fa-server"></i>
+                                </div>
+                                <h4 class="font-semibold">Cloud</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm">AWS, Google Cloud, Docker, Kubernetes</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3">
+                                    <i class="fa fa-code-fork"></i>
+                                </div>
+                                <h4 class="font-semibold">DevOps</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm">Git, CI/CD, Jenkins, GitHub Actions</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3">
+                                    <i class="fa fa-shield"></i>
+                                </div>
+                                <h4 class="font-semibold">Security</h4>
+                            </div>
+                            <p class="text-gray-600 text-sm">OAuth, JWT, Security Best Practices</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-6 text-primary mt-12">Skill Visualization</h3>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg h-80">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-gradient-to-br from-dark via-primary/80 to-secondary/80 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                    <p class="mb-8 text-white/80">
+                        I'm always open to new opportunities, collaborations, or just a friendly chat. Feel free to reach out using the information below or through the contact form.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent mr-4">
+                                <i class="fa fa-envelope-o text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Email</h4>
+                                <a href="mailto:jerrytomfaker@outlook.com" class="text-white/80 hover:text-accent transition-colors">
+                                    jerrytomfaker@outlook.com
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent mr-4">
+                                <i class="fa fa-map-marker text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Location</h4>
+                                <p class="text-white/80">Singapore</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent mr-4">
+                                <i class="fa fa-clock-o text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Working Hours</h4>
+                                <p class="text-white/80">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h4 class="font-semibold text-lg mb-4">Connect with me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/jerrytomhub" class="w-10 h-10 rounded-full bg-white/10 hover:bg-accent transition-colors flex items-center justify-center">
+                                <i class="fa fa-github"></i>
+                            </a>
+                            <a href="https://x.com/jerrytommsg" class="w-10 h-10 rounded-full bg-white/10 hover:bg-accent transition-colors flex items-center justify-center">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a href="https://www.instagram.com/jerrytomins/" class="w-10 h-10 rounded-full bg-white/10 hover:bg-accent transition-colors flex items-center justify-center">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-accent transition-colors flex items-center justify-center">
+                                <i class="fa fa-codepen"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <form id="contactForm" class="bg-white p-8 rounded-xl shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6 text-dark">Send Me a Message</h3>
+                        
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 transition-all outline-none" placeholder="John Doe">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Your Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 transition-all outline-none" placeholder="john@example.com">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 transition-all outline-none" placeholder="Project Proposal">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 transition-all outline-none resize-none" placeholder="Your message here..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-lg shadow-primary/20">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-bold mb-2">Jerry<span class="text-accent">Tom</span></h2>
+                    <p class="text-gray-400">Python & Go Programmer</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-12">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#about" class="text-gray-400 hover:text-accent transition-colors">About</a></li>
+                            <li><a href="#education" class="text-gray-400 hover:text-accent transition-colors">Education</a></li>
+                            <li><a href="#skills" class="text-gray-400 hover:text-accent transition-colors">Skills</a></li>
+                            <li><a href="#contact" class="text-gray-400 hover:text-accent transition-colors">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">Connect</h3>
+                        <ul class="space-y-2">
+                            <li><a href="https://github.com/jerrytomhub" class="text-gray-400 hover:text-accent transition-colors">GitHub</a></li>
+                            <li><a href="https://x.com/jerrytommsg" class="text-gray-400 hover:text-accent transition-colors">Twitter</a></li>
+                            <li><a href="https://www.instagram.com/jerrytomins/" class="text-gray-400 hover:text-accent transition-colors">Instagram</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400">
+                <p>&copy; 2025 Jerry Tom. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/95', 'backdrop-blur-md', 'shadow-lg');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-dark/95', 'backdrop-blur-md', 'shadow-lg');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+        
+        // Mobile menu toggle
+        menuToggle.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('opacity-0')) {
+                mobileMenu.classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                menuToggle.innerHTML = '<i class="fa fa-times text-2xl"></i>';
+            } else {
+                mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+                mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+                mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Skills chart
+        window.addEventListener('load', () => {
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            
+            const skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Python', 'Go', 'JavaScript', 'Django', 'Flask', 'Gin', 'SQL', 'DevOps'],
+                    datasets: [{
+                        label: 'Skill Level',
+                        data: [90, 80, 65, 85, 80, 75, 75, 70],
+                        backgroundColor: 'rgba(22, 93, 255, 0.2)',
+                        borderColor: 'rgba(22, 93, 255, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(22, 93, 255, 1)',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20,
+                                backdropColor: 'transparent'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real application, you would send the form data to a server
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            // For demo purposes, we'll just log the form data
+            console.log('Form submitted:', formData);
+            
+            // Show a success message
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            
+            // Reset the form
+            this.reset();
+        });
+    </script>
+</body>
+</html>    

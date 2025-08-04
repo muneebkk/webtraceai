@@ -1,0 +1,1152 @@
+<!DOCTYPE html><!-- Last Published: Thu Jul 31 2025 03:17:54 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="www.tabbyml.com" data-wf-page="66d758dfc1a1472af872e21a" data-wf-site="66d758dfc1a1472af872e216" lang="en"><head><meta charset="utf-8"/><title>Tabby - Opensource, self-hosted AI coding assistant</title><meta content="Tabby is an open-source AI coding assistant that empowers developers to code faster and smarter. Discover a self-contained alternative to GitHub Copilot, tailored for your development needs." name="description"/><meta content="Tabby - Opensource, self-hosted AI coding assistant" property="og:title"/><meta content="Tabby is an open-source AI coding assistant that empowers developers to code faster and smarter. Discover a self-contained alternative to GitHub Copilot, tailored for your development needs." property="og:description"/><meta content="Tabby - Opensource, self-hosted AI coding assistant" property="twitter:title"/><meta content="Tabby is an open-source AI coding assistant that empowers developers to code faster and smarter. Discover a self-contained alternative to GitHub Copilot, tailored for your development needs." property="twitter:description"/><meta property="og:type" content="website"/><meta content="summary_large_image" name="twitter:card"/><meta content="width=device-width, initial-scale=1" name="viewport"/><link href="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/css/tabby-dev.webflow.shared.37b1a9f53.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/><script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script><script type="text/javascript">WebFont.load({  google: {    families: ["Inconsolata:400,700"]  }});</script><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/66bb2bdd604a7640628938dd/66d5c6ad1aa3c2cf56d77658_tabby_favicon.png" rel="shortcut icon" type="image/x-icon"/><link href="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/672b539e0c3d3476d4f0800b_MediaClip.png" rel="apple-touch-icon"/><link rel="preconnect" href="https://uploads-ssl.webflow.com">
+<link rel="preconnect" href="https://assets.website-files.com/" />
+<link rel="preconnect" href="https://global-assets.website-files.com" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link rel="preconnect" href="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66daeef928eab9ba6783ca9f_ascii-art%20(1).txt" />
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+
+<!-- Keep this css code to improve the font quality-->
+<script async src="https://tally.so/widgets/embed.js"></script>
+<style>
+  * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -o-font-smoothing: antialiased;
+}
+</style><script src="https://cdn.jsdelivr.net/npm/typewriter-effect@latest/dist/core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+<style>
+.video-overlay-layer {
+  background: linear-gradient(90deg, #472209, #000); /* Replace with your desired gradient */
+  opacity: 30%;
+  -webkit-background-clip: text; /* Required for Safari */
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Required for Safari */
+}
+.why-card {
+    visibility: hidden;
+}
+
+/* Greyscale and italics initially */
+  .greyscale {
+    filter: grayscale(100%);
+    font-style: italic;
+    transition: filter 1s ease, font-style 1s ease;
+    color: #888; /* Light grey color for the greyscale part */
+  }
+
+  /* Full color and normal style after the transition */
+  .active .greyscale {
+    filter: grayscale(0%);
+    font-style: normal;
+    color: inherit; /* Revert to the inherited syntax colors */
+  }
+
+  /* Hide greyscale/italics part initially */
+  .hidden {
+    visibility: hidden;
+  }
+
+  /* Syntax highlighting colors */
+  #pythonTypewriter span.number {
+    color: #5c6370;
+  }
+  #pythonTypewriter span.keyword {
+    color: #61afef;
+  }
+  #pythonTypewriter span.function {
+    color: #e06c75;
+  }
+  #pythonTypewriter span.identifier {
+    color: #ffffff;
+  }
+  #pythonTypewriter span.type {
+    color: #98c379;
+  }
+  #pythonTypewriter span.comment {
+    color: #5c6370;
+  }
+
+  /* Fast write effect with minimal delay */
+  .fast-write {
+    animation: fastWrite 1s steps(10) forwards;
+  }
+
+  @keyframes fastWrite {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+.fade-in-up {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-out-down {
+  opacity: 0;
+  transform: translateY(10px); /* Adjust for the down effect */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-in-up-delayed {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Slower transition */
+}
+
+.fade-out-down-delayed {
+  opacity: 0;
+  transform: translateY(10px); /* Adjust for the down effect */
+  transition: opacity 0.7s ease-in, transform 0.7s ease-in; /* Slower transition */
+}
+
+</style>
+<style>
+    .ascii-art {
+        background: linear-gradient(90deg, #472209, #000);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        white-space: pre;
+        font-family: monospace;
+        font-weight: 300;
+        font-size: 9px;
+        color: #b6702c;
+        display: block;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    
+    .ascii-art-2,
+    .ascii-art-a,
+    .ascii-art-b,
+    .ascii-art-c,
+    .ascii-art-d {
+        display: block;
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+        font-size: 6px; /* Default font size */
+        text-align: left;
+        white-space: pre;
+    }
+
+
+/* Styles for .context-animation and ASCII text art */
+.context-animation {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.context-animation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, var(--rich-ocre), var(--burnt-gold) 52%, var(--gold));
+    -webkit-mask-image: linear-gradient(0deg, var(--rich-ocre), var(--burnt-gold) 52%, var(--gold)); /* Safari/iOS compatibility */
+    mask-image: linear-gradient(0deg, var(--rich-ocre), var(--burnt-gold) 52%, var(--gold));
+    z-index: -1; /* Position it behind the text */
+}
+
+.ascii-art-2 {
+    background: linear-gradient(0deg, var(--rich-ocre), var(--burnt-gold) 52%, var(--gold)); /* Gradient background */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-size: 0.6vw; /* Adjust for scaling */
+    -webkit-user-select: none; /* Prevents iOS from trying to interpret numbers as links */
+    user-select: none;
+
+}
+
+/* iOS Safari Fallback - Prevent gradient clipping */
+@supports (-webkit-touch-callout: none) {
+    .ascii-art-2 {
+        background: none; /* Remove gradient background */
+        color: #000000; /* Set fallback text color for iOS Safari */
+        -webkit-background-clip: unset;
+        background-clip: unset;
+        -webkit-text-fill-color: unset;
+    }
+}
+
+    /* Media query for screens wider than 1920px */
+    @media (min-width: 1921px) {
+        .ascii-art-2 {
+            font-size: 10px;
+        }
+        #ascii-art-a,
+        #ascii-art-b,
+        #ascii-art-c,
+        #ascii-art-d {
+            font-size: 4px; /* Max font size for #ascii-art-b */
+        }
+    }
+
+    /* Media query for screens 992px and smaller */
+    @media (max-width: 992px) {
+        .ascii-art-2 {
+            font-size: 1vw;
+        }
+    }
+
+    /* Media query for very small screens (mobiles, below 480px) */
+    @media (max-width: 480px) {
+        .ascii-art-2 {
+            font-size: 2vw;    
+        }
+    }
+
+    /* Media query for tablets and smaller (below 768px) */
+    @media (max-width: 768px) {
+        .ascii-art-2 {
+            font-size: 2vw;
+        }
+    }
+</style>
+</head><body><div class="page-wrapper navbar-on-page"><div class="styles---glowing-button w-embed"><style>
+ * {
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     font-smoothing: antialiased;
+     text-rendering: optimizeLegibility;
+}
+
+  html { font-size: calc(0.625rem + 0.41666666666666663vw); }
+  @media screen and (max-width:1920px) { html { font-size: calc(0.625rem + 0.41666666666666674vw); } }
+  @media screen and (max-width:1440px) { html { font-size: calc(0.8126951092611863rem + 0.20811654526534862vw); } }
+  @media screen and (max-width:479px) { html { font-size: calc(0.7494769874476988rem + 0.8368200836820083vw); } }
+
+
+.glowing-wrapper-button:after {
+	background: radial-gradient(85% 120% at 50% 120%, rgba(255, 255, 255, .24) 0%, rgba(255, 255, 255, 0) 100%);
+	border-radius: 999px;
+	content: "";
+	height: calc(100% + 4px);
+	left: -2px;
+	opacity: 0;
+	position: absolute;
+	top: -2px;
+	transition: 1s all;
+	width: calc(100% + 4px)
+}
+
+.glowing-wrapper-button:hover:after {
+	opacity: .7
+}
+
+
+.glowing-wrapper-active .glowing-wrapper-animations,
+.glowing-wrapper-active .glowing-wrapper-borders-masker {
+	opacity: 1
+}
+
+.glowing-wrapper-animations:before,
+.glowing-wrapper-borders:before {
+	content: "";
+	float: left;
+	padding-top: 100%
+}
+
+.glowing-wrapper-animations:after,
+.glowing-wrapper-borders:after {
+	clear: both;
+	content: "";
+	display: block
+}
+
+.glowing-wrapper-animations {
+	pointer-events: none;
+}
+
+.glowing-wrapper-animations * {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%
+}
+
+.glowing-wrapper-borders,
+.glowing-wrapper-glow,
+.glowing-wrapper-mask {
+	animation: borderTurn 2.5s infinite linear;
+	background-image: conic-gradient(from 0 at 50% 50%, rgba(255, 255, 255, .5) 0deg, rgba(255, 255, 255, 0) 60deg, rgba(255, 255, 255, 0) 310deg, rgba(255, 255, 255, .5) 360deg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover
+}
+
+.glowing-wrapper-mask-wrapper {
+	-webkit-mask: url("data:image/svg+xml,url('data:image/svg+xml,%253Csvg width='28' height='24' viewBox='0 0 28 24' fill='none' xmlns='http://www.w3.org/2000/svg'%253E%253Crect width='28' height='24' fill='black'/%253E%253C/svg%253E%250A');");
+	mask: url("data:image/svg+xml,url('data:image/svg+xml,%253Csvg width='28' height='24' viewBox='0 0 28 24' fill='none' xmlns='http://www.w3.org/2000/svg'%253E%253Crect width='28' height='24' fill='black'/%253E%253C/svg%253E%250A');");
+	mask-repeat: repeat;
+	-webkit-mask-size: auto;
+	mask-size: auto
+}
+
+.glowing-wrapper-borders {
+	animation-name: borderTurnWithTranslate
+}
+
+.glowing-wrapper-borders-masker {
+	content: "";
+	inset: 0;
+	-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+	mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+	mask-composite: xor;
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	pointer-events: none;
+}
+
+@keyframes borderTurn {
+	0% {
+		transform: rotate(0)
+	}
+
+	to {
+		transform: rotate(360deg)
+	}
+}
+
+@keyframes borderTurnWithTranslate {
+	0% {
+		transform: translate(-50%, -50%) rotate(0)
+	}
+
+	to {
+		transform: translate(-50%, -50%) rotate(360deg)
+	}
+}
+                    </style></div><div class="global-styles w-embed w-script"><style>
+html, body {
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+/* Set color style to inherit */
+.inherit-color * {
+    color: inherit;
+}
+
+/* Focus state style for keyboard navigation for the focusable elements */
+*[tabindex]:focus-visible,
+  input[type="file"]:focus-visible {
+   outline: 0.125rem solid #4d65ff;
+   outline-offset: 0.125rem;
+}
+
+/* Get rid of top margin on first element in any rich text element */
+.w-richtext > :not(div):first-child, .w-richtext > div:first-child > :first-child {
+  margin-top: 0 !important;
+}
+
+/* Get rid of bottom margin on last element in any rich text element */
+.w-richtext>:last-child, .w-richtext ol li:last-child, .w-richtext ul li:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* Prevent all click and hover interaction with an element */
+.pointer-events-off {
+	pointer-events: none;
+}
+
+/* Enables all click and hover interaction with an element */
+.pointer-events-on {
+  pointer-events: auto;
+}
+
+/* Create a class of .div-square which maintains a 1:1 dimension of a div */
+.div-square::after {
+	content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+
+/* Make sure containers never lose their center alignment */
+.container-medium,.container-small, .container-large {
+	margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+/* 
+Make the following elements inherit typography styles from the parent and not have hardcoded values. 
+Important: You will not be able to style for example "All Links" in Designer with this CSS applied.
+Uncomment this CSS to use it in the project. Leave this message for future hand-off.
+*/
+/*
+a,
+.w-input,
+.w-select,
+.w-tab-link,
+.w-nav-link,
+.w-dropdown-btn,
+.w-dropdown-toggle,
+.w-dropdown-link {
+  color: inherit;
+  text-decoration: inherit;
+  font-size: inherit;
+}
+*/
+
+/* Apply "..." after 3 lines of text */
+.text-style-3lines {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+/* Apply "..." after 2 lines of text */
+.text-style-2lines {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+/* Adds inline flex display */
+.display-inlineflex {
+  display: inline-flex;
+}
+
+/* These classes are never overwritten */
+.hide {
+  display: none !important;
+}
+
+@media screen and (max-width: 991px) {
+    .hide, .hide-tablet {
+        display: none !important;
+    }
+}
+  @media screen and (max-width: 767px) {
+    .hide-mobile-landscape{
+      display: none !important;
+    }
+}
+  @media screen and (max-width: 479px) {
+    .hide-mobile{
+      display: none !important;
+    }
+}
+ 
+.margin-0 {
+  margin: 0rem !important;
+}
+  
+.padding-0 {
+  padding: 0rem !important;
+}
+
+.spacing-clean {
+padding: 0rem !important;
+margin: 0rem !important;
+}
+
+.margin-top {
+  margin-right: 0rem !important;
+  margin-bottom: 0rem !important;
+  margin-left: 0rem !important;
+}
+
+.padding-top {
+  padding-right: 0rem !important;
+  padding-bottom: 0rem !important;
+  padding-left: 0rem !important;
+}
+  
+.margin-right {
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+  margin-left: 0rem !important;
+}
+
+.padding-right {
+  padding-top: 0rem !important;
+  padding-bottom: 0rem !important;
+  padding-left: 0rem !important;
+}
+
+.margin-bottom {
+  margin-top: 0rem !important;
+  margin-right: 0rem !important;
+  margin-left: 0rem !important;
+}
+
+.padding-bottom {
+  padding-top: 0rem !important;
+  padding-right: 0rem !important;
+  padding-left: 0rem !important;
+}
+
+.margin-left {
+  margin-top: 0rem !important;
+  margin-right: 0rem !important;
+  margin-bottom: 0rem !important;
+}
+  
+.padding-left {
+  padding-top: 0rem !important;
+  padding-right: 0rem !important;
+  padding-bottom: 0rem !important;
+}
+  
+.margin-horizontal {
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+}
+
+.padding-horizontal {
+  padding-top: 0rem !important;
+  padding-bottom: 0rem !important;
+}
+
+.margin-vertical {
+  margin-right: 0rem !important;
+  margin-left: 0rem !important;
+}
+  
+.padding-vertical {
+  padding-right: 0rem !important;
+  padding-left: 0rem !important;
+}
+
+/* Apply "..." at 100% width */
+.truncate-width { 
+		width: 100%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+/* Removes native scrollbar */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none; 
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+/* Change text highlight color */
+::selection {
+  background-color: #2d292e; /* Change to your desired highlight color */
+  color: white; /* Change to your desired text color when highlighted */
+}
+
+ input.form_input {
+    border: none;
+    outline: none;
+  }
+  
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #e9e1d5 inset;
+    -webkit-text-fill-color: #000;
+    border: none;
+    outline: none;
+  }
+  
+</style>
+<script async>
+// Fetch and display GitHub stars with 1 decimal place
+fetch('https://api.github.com/repos/TabbyML/tabby')
+  .then(response => response.json())
+  .then(data => {
+    let stars = data.stargazers_count;
+    // Format to 1 decimal place if over 1,000
+    let displayStars = stars >= 1000 ? (stars / 1000).toFixed(1) + 'k' : stars;
+    document.getElementById('star-count').textContent = displayStars;
+  })
+  .catch(error => console.error('Error fetching star count:', error));
+</script></div><div data-animation="default" class="navbar6_component w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" data-w-id="ef2ba3ec-2f9d-543f-5734-1393d1550ee1" role="banner" data-duration="400" data-doc-height="1"><div class="navbar14_container"><a href="/" aria-current="page" class="navbar6_logo-link w-nav-brand w--current"><img loading="lazy" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e2e19fd61f609acc9835ff_Tabby_logo%20(1).avif" alt="Tabby logo" class="navbar6_logo"/></a><nav role="navigation" id="w-node-ef2ba3ec-2f9d-543f-5734-1393d1550ee5-d1550ee1" class="navbar14_menu w-nav-menu"><div class="navbar14_menu-link-wrapper"><div class="navbar6_menu-left"><div data-delay="200" data-hover="false" data-w-id="63e92ca8-850e-a2c2-8dae-72d940b8ce78" class="navbar6_link dropdown w-dropdown"><div class="navbar-dropdown9_dropdown-toggle w-dropdown-toggle"><div>FEATURES</div><div class="new-button"><div>New</div><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/683731deba56f17b92c181b9_aimagicpochi.svg" loading="lazy" alt="" class="tiny-img"/></div><div class="dropdown-chevron w-embed"><svg width=" 100%" height=" 100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"/>
+</svg></div></div><nav class="navbar-dropdown9_dropdown-list w-dropdown-list"><div class="dropdown_border"><div class="navbar-dropdown9_dropdown-content"><div id="w-node-_63e92ca8-850e-a2c2-8dae-72d940b8ce7f-d1550ee1" class="navbar-dropdown9_dropdown-link-list"><a href="/agent" class="navbar-dropdown9_dropdown-link w-inline-block"><div class="navbar-dropdown9_icon-wrapper"><img loading="lazy" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/683dceca1a9913fc1de5ee2e_agent.png" alt="" class="icon-height-xsmall"/></div><div class="navbar-dropdown9_text-wrapper"><div class="flex-left-align-small-margin"><div class="text-weight-semibold">Agent</div><div class="div-block-9 flex-left-align-small-margin"><div class="text-size-tiny white">New</div><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/683731deba56f17b92c181b9_aimagicpochi.svg" loading="lazy" alt="" class="tiny-img"/></div></div><div class="flex-left-align-small-margin"><p class="text-size-small hide-mobile-landscape no-caps">Pochi - Your Full-Stack AI Teammate</p></div></div></a><a href="https://www.tabbyml.com/#code-completion" class="navbar-dropdown9_dropdown-link w-inline-block"><div class="navbar-dropdown9_icon-wrapper"><img loading="lazy" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/68374dafade740f753bf56fd_Group%206.svg" alt="" class="icon-height-xsmall"/></div><div class="navbar-dropdown9_text-wrapper"><div class="text-weight-semibold">Code completion</div><p class="text-size-small hide-mobile-landscape no-caps">AI suggestions that predict your next move</p></div></a><a href="https://www.tabbyml.com/#answer-engine" class="navbar-dropdown9_dropdown-link w-inline-block"><div class="navbar-dropdown9_icon-wrapper"><img loading="lazy" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/68374daf74da681a76ffb543_Group%207.svg" alt="" class="icon-height-xsmall"/></div><div class="navbar-dropdown9_text-wrapper"><div class="text-weight-semibold">answer engine</div><p class="text-size-small hide-mobile-landscape no-caps">Instant coding answers without leaving your IDE</p></div></a><a href="https://www.tabbyml.com/#inline-chat" class="navbar-dropdown9_dropdown-link w-inline-block"><div class="navbar-dropdown9_icon-wrapper"><img loading="lazy" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/68374daf65b0fcc2b667cae3_Group%208.svg" alt="" class="icon-height-xsmall"/></div><div class="navbar-dropdown9_text-wrapper"><div class="text-weight-semibold">inline chat</div><p class="text-size-small hide-mobile-landscape no-caps">Real-time AI chat directly in your code</p></div></a><a href="https://www.tabbyml.com/#data-connectors" class="navbar-dropdown9_dropdown-link w-inline-block"><div class="navbar-dropdown9_icon-wrapper"><img loading="lazy" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/68374daf5a1df983d80cf704_Group%209.svg" alt="" class="icon-height-xsmall"/></div><div class="navbar-dropdown9_text-wrapper"><div class="text-weight-semibold">data connectors</div><p class="text-size-small hide-mobile-landscape no-caps">Connect data sources for smarter AI assistance</p></div></a></div><div class="navbar-dropdown9_dropdown-link-list dropdown"><div class="navbar-dropdown3_dropdown-content-wrapper z-index-1"><h4 class="text-size-small text-weight-semibold">what&#x27;s new</h4><div class="navbar-dropdown3_dropdown-blog-item-wrapper"><a href="/agent" class="navbar-dropdown3_blog-item w-inline-block"><div class="navbar-dropdown3_blog-image-wrapper"><img sizes="(max-width: 991px) 100vw, 360px" srcset="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6879cef81976c1292d6d6722_pochi-banner-2%20(1)-p-500.jpg 500w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6879cef81976c1292d6d6722_pochi-banner-2%20(1)-p-800.jpg 800w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6879cef81976c1292d6d6722_pochi-banner-2%20(1)-p-1080.jpg 1080w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6879cef81976c1292d6d6722_pochi-banner-2%20(1).jpg 1364w" alt="" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6879cef81976c1292d6d6722_pochi-banner-2%20(1).jpg" loading="lazy" class="navbar-dropdown3_blog-image"/></div><div class="navbar-dropdown3_blog-content"><div class="margin-bottom margin-tiny"><div class="text-weight-semibold small-date">Jul 18, 2025</div></div><p class="text-size-small no-caps">An 𝗔𝗜 𝘁𝗲𝗮𝗺𝗺𝗮𝘁𝗲 who takes on tasks - planning, executing, and checking in - just like a human would. It fits right into your existing tools and workflows. Nothing new.</p><div class="margin-top margin-xxsmall"><div class="read-more-nav">Read more</div></div></div></a></div></div></div></div></div></nav></div><a href="/blog" class="navbar6_link w-nav-link">Blog</a><a href="/pricing" class="navbar6_link w-nav-link">Pricing</a><a href="https://tabby.tabbyml.com/docs/welcome/" target="_blank" class="navbar6_link w-nav-link">Docs 📂</a></div><div class="navbar6_menu-right"><div class="navbar6_link"><div class="github-embed w-embed"><a href="https://github.com/TabbyML/tabby" target="_blank" style="display: flex; align-items: center; gap: 5px; font-size: 1rem; font-family: inherit; text-decoration: none;">
+  <svg height="1.1rem" viewBox="0 0 16 16" version="1.1" width="1.1rem" aria-hidden="true">
+    <path fill="#181717" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.66 7.66 0 0 1 2-.27c.68.01 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="20" style="font-size: 1rem; font-family: inherit;">
+    <g fill="#000" text-anchor="middle" font-family="inherit" text-rendering="geometricPrecision" font-size="110">
+      <text id="star-count" x="150" y="105" transform="scale(.16)" fill="#000">21.6K</text>
+    </g>
+  </svg>
+</a></div></div><a href="#tally-open=mZJ10o&amp;tally-layout=modal&amp;tally-width=720&amp;tally-hide-title=0&amp;tally-emoji-text=%F0%9F%91%8B&amp;tally-emoji-animation=wave" target="_blank" class="button is-play w-inline-block"><div>View LIVE DEMO 🚀</div></a></div></div></nav><div class="navbar14_menu-button w-nav-button"><div class="menu-icon2"><div class="menu-icon2_line-top"></div><div class="menu-icon2_line-middle"><div class="menu-icon1_line-middle-inner"></div></div><div class="menu-icon2_line-bottom"></div></div></div></div></div><main class="main-wrapper max-width-full"><header class="section_home_hero"><div class="padding-global"><div class="container-large"></div></div><header class="section_header139"><div class="header139_component"><div class="header139_card"><div class="padding-global"><div class="container-large"><div class="header139_content"><div class="max-width-medium"><div class="margin-bottom margin-medium"><div><div class="glowing-wrapper glowing-wrapper-active"><div class="glowing-wrapper-animations"><div class="glowing-wrapper-glow"></div><div class="glowing-wrapper-mask-wrapper"><div class="glowing-wrapper-mask"></div></div></div><div class="glowing-wrapper-borders-masker"><div class="glowing-wrapper-borders"></div></div><a href="/agent" class="glowing-wrapper-button w-inline-block"><div class="live-circle"></div><div class="button-text text-size-medium">Explore the latest Agent feature!</div></a></div></div><h1 class="heading-style-h1 animate-text">Secure, flexible, and transparent AI coding</h1></div><div class="margin-bottom margin-medium"><p class="text-size-medium text-color-white animate-text">Secure, flexible, and transparent AI coding </p></div><div class="button-group"><a href="#tally-open=mZJ10o&amp;tally-layout=modal&amp;tally-width=720&amp;tally-hide-title=0&amp;tally-emoji-text=%F0%9F%91%8B&amp;tally-emoji-animation=wave" target="_blank" class="button is-play w-inline-block"><div>View LIVE DEMO 🚀</div></a><a href="https://tabby.tabbyml.com/docs/welcome/" target="_blank" class="button is-link is-icon github w-inline-block"><div>Get started</div><div class="icon-1x1-xsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974c0 4.406 2.857 8.145 6.821 9.465c.499.09.679-.217.679-.481c0-.237-.008-.865-.011-1.696c-2.775.602-3.361-1.338-3.361-1.338c-.452-1.152-1.107-1.459-1.107-1.459c-.905-.619.069-.605.069-.605c1.002.07 1.527 1.028 1.527 1.028c.89 1.524 2.336 1.084 2.902.829c.091-.645.351-1.085.635-1.334c-2.214-.251-4.542-1.107-4.542-4.93c0-1.087.389-1.979 1.024-2.675c-.101-.253-.446-1.268.099-2.64c0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336a9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021c.545 1.372.203 2.387.099 2.64c.64.696 1.024 1.587 1.024 2.675c0 3.833-2.33 4.675-4.552 4.922c.355.308.675.916.675 1.846c0 1.334-.012 2.41-.012 2.737c0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974C22 6.465 17.535 2 12.026 2z" fill="currentColor"></path></svg></div></a></div></div></div></div></div><div class="header139_background-image"><div class="video-overlay-layer w-embed"><pre id="ascii-art" class="ascii-art"></pre></div><div class="video-overlay-layer hide"></div></div><div class="home_hero_background-video-wrapper"><main class="hero-shader"></main><div data-poster-url="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216%2F66e2e7c95a1621ce1e727929_tabby-hero-trimmed-poster-00001.jpg" data-video-urls="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216%2F66e2e7c95a1621ce1e727929_tabby-hero-trimmed-transcode.mp4,https://cdn.prod.website-files.com/66d758dfc1a1472af872e216%2F66e2e7c95a1621ce1e727929_tabby-hero-trimmed-transcode.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="image w-background-video w-background-video-atom"><video id="9cfbd78a-8dcc-4f9a-258d-01ff4bebb776-video" autoplay="" loop="" style="background-image:url(&quot;https://cdn.prod.website-files.com/66d758dfc1a1472af872e216%2F66e2e7c95a1621ce1e727929_tabby-hero-trimmed-poster-00001.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover"><source src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216%2F66e2e7c95a1621ce1e727929_tabby-hero-trimmed-transcode.mp4" data-wf-ignore="true"/><source src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216%2F66e2e7c95a1621ce1e727929_tabby-hero-trimmed-transcode.webm" data-wf-ignore="true"/></video></div></div></div></div></header></header><section class="section_whytabby"><div class="padding-global"><div class="container-large"><div class="padding-section-large"><div class="why-section-title-wrapper"><div class="margin-bottom margin-small"><h2 class="animate-text">Why Choose Tabby?</h2></div><div class="margin-bottom margin-medium"><p class="text-size-medium animate-text"><strong>Tabby</strong> is an open-source AI coding assistant, designed to bring the power of AI to your development workflow while keeping you in control. Whether you’re coding in the cloud or on-premises, Tabby offers a flexible, transparent, and highly configurable alternative to proprietary solutions.</p></div></div><div class="w-layout-grid why-tabby-detail-list"><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb09-f872e21a" class="why-card"><div class="benefit-image w-embed"><div id="ascii-art-a" 
+     style="
+           display: block;
+           margin: 0;
+           padding: 0;
+           line-height: 1; 
+           font-size: 0.35vw; 
+           text-align: left; 
+           white-space: pre;
+           font-family: monospace;"></div></div><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3 animate-text">Transparency &amp; Security</h3></div><p class="animate-text">As an open-source solution, Tabby ensures software supply chain safety, giving you peace of mind.</p><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb0f-f872e21a" class="why-card"><div class="benefit-image w-embed"><div id="ascii-art-b" style="
+           display: block;
+           margin: 0;
+           padding: 0;
+           line-height: 1; 
+           font-size: 0.35vw; 
+           text-align: left; 
+           white-space: pre;
+           font-family: monospace;"></div></div><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3 animate-text">Flexible Deployment</h3></div><p class="animate-text">Easily integrates with your existing infrastructure, including Cloud IDEs, with support for consumer-grade GPUs.</p><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div id="w-node-e322a992-94e1-3797-7d06-2fcb7fb44d91-f872e21a" class="why-card"><div class="benefit-image w-embed"><div id="ascii-art-c" style="
+           display: block;
+           margin: 0;
+           padding: 0;
+           line-height: 1; 
+           font-size: 0.35vw; 
+           text-align: left; 
+           white-space: pre;
+           font-family: monospace;"
+           data-detectors="none"></div></div><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3 animate-text">Configurability Control</h3></div><p class="animate-text">Run Tabby in your way and on your terms with no need for external DBMS or cloud services.</p><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div id="w-node-_920ba221-49eb-e9f4-1a1c-74a987466622-f872e21a" class="why-card"><div class="corner top-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="benefit-image w-embed"><div id="ascii-art-d" style="
+           display: block;
+           margin: 0;
+           padding: 0;
+           line-height: 1; 
+           font-size: 0.35vw; 
+           text-align: left; 
+           white-space: pre;
+           font-family: monospace;"></div></div><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3 animate-text">Premier AI Quality</h3></div><p class="animate-text">Enjoy cutting-edge AI capabilities for code completion, answering queries, inline chat, and more.</p><div class="corner right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div></div></div></div></div></section><section id="code-completion" class="section_codecompletiton"><div class="padding-global"><div class="container-large"><div class="padding-section-medium"><div class="w-layout-grid home_feature-section-inline-chat_component"><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb30-f872e21a" class="home_feature-section-inline-chat_image-wrapper"><img class="image-3" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e81e8a3e02b0edeb7b93fb_Code-Selector.png" alt="" style="opacity:0" sizes="(max-width: 2520px) 100vw, 2520px" data-w-id="4b2b524d-572f-29df-f543-3c1da24ed322" loading="lazy" srcset="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e81e8a3e02b0edeb7b93fb_Code-Selector-p-500.png 500w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e81e8a3e02b0edeb7b93fb_Code-Selector-p-800.png 800w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e81e8a3e02b0edeb7b93fb_Code-Selector-p-1080.png 1080w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e81e8a3e02b0edeb7b93fb_Code-Selector-p-1600.png 1600w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e81e8a3e02b0edeb7b93fb_Code-Selector-p-2000.png 2000w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e81e8a3e02b0edeb7b93fb_Code-Selector.png 2520w"/><div class="row code-complete"><div id="element" class="row code complete"><div class="typewriter hide"><div class="codeblock-text complete">1  <span class="orange-code">CREATE TABLE IF NOT EXISTS</span> roles (    <br/>2      id               <span class="orange-code">INTEGER PRIMARY KEY</span> AUTOINCREMENT,<br/>3      name             <span class="orange-code">VARCHAR</span>(<span class="yellow-code">100</span>) <span class="orange-code">NOT</span> <span class="yellow-code">NULL</span> <span class="orange-code">COLLATE</span> NOCASE,<br/>4      description      <span class="orange-code">TEXT</span>,<br/>5      created_at       <span class="orange-code">TIMESTAMP DEFAULT </span>(<span class="orange-code">DATETIME</span>(<span class="yellow-code">&#x27;now&#x27;</span>)),<br/>6      updated_at       <span class="orange-code">TIMESTAMP DEFAULT</span> (<span class="orange-code">DATETIME</span>(<span class="yellow-code">&#x27;now&#x27;</span>)),<br/>7<br/>8      <span class="orange-code">CONSTRAINT</span>  &#x27;idx_name&#x27; <span class="orange-code">UNIQUE</span> (&#x27;name&#x27;)<br/>9  );     </div></div><div class="typewriter w-embed"><div id="pythonTypewriter" class="typewriter">
+  <pre style="overflow:hidden">
+    <!-- Full static Python code -->
+<span class="number">50</span>  <span class="keyword">def</span> <span class="function">build_response</span>(*<span class="identifier">,</span> <span class="type">Client</span>, <span class="type">response</span>: <span class="type">httpx.Response</span>) -> <span class="type">Response[<span class="type">Any</span>]</span>:
+    <br><span class="number">51</span> &nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return</span> <span class="function">Response</span>(
+    <br><span class="number">52</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="identifier">status_code</span>=<span class="type">HTTPStatus</span>(<span class="identifier">response</span>.<span class="identifier">status_code</span>),
+    <br><span class="number">53</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="identifier">content</span>=<span class="identifier">response</span>.<span class="identifier">content</span>,
+    <br><span class="number">54</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="identifier">headers</span>=<span class="identifier">response</span>.<span class="identifier">headers</span>,
+    <br><span class="number">55</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="identifier">parsed</span>=<span class="function">_parse_response</span>(<span class="identifier">client</span>=<span class="identifier">client</span>, <span class="identifier">response</span>=<span class="identifier">response</span>),
+    <br><span class="number">56</span> &nbsp;&nbsp;&nbsp;&nbsp;)
+    <br><span class="number">57</span>  <span class="keyword">def</span> <span class="function">_delete_response</span>(<span id="inlineGreyscale" class="greyscale italics hidden">*, client:<span class="type">Client</span>, response:<span class="type">httpx.Response</span>) -> <span class="type">Response[<span class="type">Any</span>]</span>:</span><div id="greyscalePart" class="hidden greyscale italics"><br><span class="number">58</span> &nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return</span> <span class="function">Response</span>(
+      <br><span class="number">59</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="identifier">status_code</span>=<span class="type">HTTPStatus</span>(<span class="identifier">response</span>.<span class="identifier">status_code</span>),
+      <br><span class="number">60</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="identifier">content</span>=<span class="identifier">response</span>.<span class="identifier">content</span>,
+      <br><span class="number">61</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="identifier">headers</span>=<span class="identifier">response</span>.<span class="identifier">headers</span>,
+      <br><span class="number">62</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span id="animatedLastLine" class="greyscale italics"><span class="identifier">parsed</span>=<span class="function">parseresponse</span>(<span class="identifier">client</span>=<span class="identifier">client</span>)</span>
+      <br><span class="number">63</span> &nbsp;&nbsp;&nbsp;&nbsp; )
+    </div>
+  </pre>
+</div></div><div data-w-id="cbdbf90a-2468-9fa3-187b-659855b8e0c5" data-is-ix2-target="1" class="tabby-bar-lottie" data-animation-type="lottie" data-src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/67262c7ace4a14e2438719dd_optimized_codecomplete.lottie" data-loop="1" data-direction="1" data-autoplay="0" data-renderer="svg" data-default-duration="0" data-duration="7"></div></div></div><div class="ring-container"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div></div></div><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb32-f872e21a" class="home_feature-section-inline-chat_content"><div class="margin-bottom margin-small"><h2 class="heading-style-h2 animate-text"><span class="neutral-heading">Code Completion:</span> <br/>Accelerate your coding with intelligent, AI-powered suggestions.</h2></div><div class="margin-bottom margin-medium"><p class="text-size-medium animate-text"><br/>Tabby’s code completion engine is designed to understand your coding context and provide real-time suggestions that are accurate and relevant. </p></div><div class="w-layout-grid home_feature-section-inline-chat_item-list"><div class="home_feature-section-inline-chat_text-wrapper"><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h6 animate-text">Efficient</h3></div><p class="animate-text">Whether you’re writing a simple function or working on a complex project, Tabby predicts your next move, helping you code faster and with fewer errors. </p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="home_feature-section-inline-chat_text-wrapper"><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h6 animate-text">Intuitive</h3></div><p class="animate-text">Experience the power of AI that adapts to your coding style and seamlessly integrates into your IDE.</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div></div></div></div></div></div></div></section><section id="answer-engine" class="section_answerengine"><div class="padding-global"><div class="container-large"><div class="padding-section-medium"><div class="w-layout-grid home_feature-section-data-connectors_component"><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb4b-f872e21a" class="home_feature-section-data-connectors_content"><div class="margin-bottom margin-small"><h2 class="heading-style-h2 animate-text"><span class="neutral-heading">Answer Engine:</span> <br/>Get instant answers to your coding questions within your IDE.</h2></div><div class="margin-bottom margin-medium"><p class="text-size-medium animate-text">When you’re deep in the development process, interruptions can break your flow. With Tabby’s Answer Engine, you can stay focused on your code while getting the answers you need, right within your IDE.</p></div><div class="w-layout-grid home_feature-section-data-connectors_item-list"><div class="home_feature-section-data-connectors_text-wrapper"><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h6 animate-text">Instant Answers</h3></div><p class="animate-text">Simply ask a question, and Tabby will provide clear, concise explanations or examples, helping you overcome roadblocks without missing a beat.</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="home_feature-section-data-connectors_text-wrapper"><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h6 animate-text">Faster Development</h3></div><p class="animate-text">By leveraging TabbyML&#x27;s Answer Engine, you can speed up your development workflow.</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div></div></div><div class="answer-engine-visual"><div class="tabbby-block-animation"><div class="row"><div class="animate-text"><span class="tabby-highlight">TabbyML/tabby</span> Does this repo use <span class="tabby-highlight">📚 Tailwind CSS</span> library?</div></div></div><div class="tabbby-block-animation"><div class="sources-title-wrap"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M13 13v8h8v-8zM3 21h8v-8H3zM3 3v8h8V3zm13.66-1.31L11 7.34L16.66 13l5.66-5.66z"></path></svg></div><div class="animate-text">Sources</div></div><div class="div-block-8"><div class="source-graphic"><div class="animate-text"><strong>Display - Tailwind CSS</strong><br/>01002500100210200140</div><div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M18.5 9.51a4.22 4.22 0 0 1-1.91-1.34A5.77 5.77 0 0 0 12 6a4.72 4.72 0 0 0-5 4a3.23 3.23 0 0 1 3.5-1.49a4.32 4.32 0 0 1 1.91 1.35A5.77 5.77 0 0 0 17 12a4.72 4.72 0 0 0 5-4a3.2 3.2 0 0 1-3.5 1.51zm-13 4.98a4.22 4.22 0 0 1 1.91 1.34A5.77 5.77 0 0 0 12 18a4.72 4.72 0 0 0 5-4a3.23 3.23 0 0 1-3.5 1.49a4.32 4.32 0 0 1-1.91-1.35A5.8 5.8 0 0 0 7 12a4.72 4.72 0 0 0-5 4a3.2 3.2 0 0 1 3.5-1.51z" fill="currentColor"></path></svg></div></div><div class="source-graphic"><div class="animate-text"><strong>feat(ui): update dark </strong>mode...</div><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974c0 4.406 2.857 8.145 6.821 9.465c.499.09.679-.217.679-.481c0-.237-.008-.865-.011-1.696c-2.775.602-3.361-1.338-3.361-1.338c-.452-1.152-1.107-1.459-1.107-1.459c-.905-.619.069-.605.069-.605c1.002.07 1.527 1.028 1.527 1.028c.89 1.524 2.336 1.084 2.902.829c.091-.645.351-1.085.635-1.334c-2.214-.251-4.542-1.107-4.542-4.93c0-1.087.389-1.979 1.024-2.675c-.101-.253-.446-1.268.099-2.64c0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336a9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021c.545 1.372.203 2.387.099 2.64c.64.696 1.024 1.587 1.024 2.675c0 3.833-2.33 4.675-4.552 4.922c.355.308.675.916.675 1.846c0 1.334-.012 2.41-.012 2.737c0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974C22 6.465 17.535 2 12.026 2z" fill="currentColor"></path></svg></div></div><div class="source-graphic"><div class="animate-text"><strong>docs: add blog post on orchest..</strong><br/>TAB-558</div><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974c0 4.406 2.857 8.145 6.821 9.465c.499.09.679-.217.679-.481c0-.237-.008-.865-.011-1.696c-2.775.602-3.361-1.338-3.361-1.338c-.452-1.152-1.107-1.459-1.107-1.459c-.905-.619.069-.605.069-.605c1.002.07 1.527 1.028 1.527 1.028c.89 1.524 2.336 1.084 2.902.829c.091-.645.351-1.085.635-1.334c-2.214-.251-4.542-1.107-4.542-4.93c0-1.087.389-1.979 1.024-2.675c-.101-.253-.446-1.268.099-2.64c0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336a9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021c.545 1.372.203 2.387.099 2.64c.64.696 1.024 1.587 1.024 2.675c0 3.833-2.33 4.675-4.552 4.922c.355.308.675.916.675 1.846c0 1.334-.012 2.41-.012 2.737c0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974C22 6.465 17.535 2 12.026 2z" fill="currentColor"></path></svg></div></div></div><div class="row"><div class="animate-text">Yes, the repo TabbyML/tabby uses the Tailwind CSS library. This is evident from the usage of the Tailwind&#x27;s utility classes in the HTML and CSS files, such as `inline-grid`, `grid-cols-3`, `gap-4`, `flex-1`, `contents`, `table`, `table-row`, and others <sup>1</sup> <sup>11</sup> <sup>12</sup>. Additionally, the CSS files explicity import Tailwind&#x27;s base, components, and utilities layers <sup>11</sup> <sup>12</sup></div></div></div><div class="ring-container"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div></div></div></div></div></div></div></section><section id="inline-chat" class="section_inline-chat"><div class="padding-global"><div class="container-large"><div class="w-layout-grid home_feature-section-inline-chat_component"><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb66-f872e21a" class="home_feature-section-inline-chat_image-wrapper"><div data-w-id="eb7f3d8c-844d-b07f-f89f-d458dd05656b" style="opacity:0" class="code-block-animation hide"><div data-w-id="eb7f3d8c-844d-b07f-f89f-d458dd05656c" style="opacity:0" class="row"><img loading="lazy" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fd48000f31704108fdda90_tabby%20logomark%20%404x.avif" alt="Tabby Logo" class="tabby-avatar"/><div class="text-color-white">Tabby</div></div><div data-w-id="eb7f3d8c-844d-b07f-f89f-d458dd056570" style="opacity:0" class="row"><div class="text-color-white textt-style-codeblock text-weight-semibold">Read 12 files ↓</div></div><div data-w-id="eb7f3d8c-844d-b07f-f89f-d458dd056573" style="opacity:0" class="row"><div class="text-color-white textt-style-codeblock">To generate a database migration based on the provided example, you can follow the structure and syntax used in the existing migrations. Here is an example of how you might create a new migration to add a &#x27;roles&#x27; table.</div></div><div data-w-id="eb7f3d8c-844d-b07f-f89f-d458dd056576" style="opacity:0" class="row codeblock"><div class="codeblock-header"><div>sql</div><div class="div-block-4"><div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M13 7h9v2h-9zm0 8h9v2h-9zm3-4h6v2h-6zm-3 1L8 7v4H2v2h6v4z"></path></svg></div><div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M216 28H88a12 12 0 0 0-12 12v36H40a12 12 0 0 0-12 12v128a12 12 0 0 0 12 12h128a12 12 0 0 0 12-12v-36h36a12 12 0 0 0 12-12V40a12 12 0 0 0-12-12m-60 176H52V100h104Zm48-48h-24V88a12 12 0 0 0-12-12h-68V52h104Z"></path></svg></div></div></div><div id="element" class="row code"><div id="sqlTypewriter" class="typewriter sql"><div class="codeblock-text hide">1  <span class="orange-code">CREATE TABLE IF NOT EXISTS</span> roles (    <br/>2      id               <span class="orange-code">INTEGER PRIMARY KEY</span> AUTOINCREMENT,<br/>3      name             <span class="orange-code">VARCHAR</span>(<span class="yellow-code">100</span>) <span class="orange-code">NOT</span> <span class="yellow-code">NULL</span> <span class="orange-code">COLLATE</span> NOCASE,<br/>4      description      <span class="orange-code">TEXT</span>,<br/>5      created_at       <span class="orange-code">TIMESTAMP DEFAULT </span>(<span class="orange-code">DATETIME</span>(<span class="yellow-code">&#x27;now&#x27;</span>)),<br/>6      updated_at       <span class="orange-code">TIMESTAMP DEFAULT</span> (<span class="orange-code">DATETIME</span>(<span class="yellow-code">&#x27;now&#x27;</span>)),<br/>7<br/>8      <span class="orange-code">CONSTRAINT</span>  &#x27;idx_name&#x27; <span class="orange-code">UNIQUE</span> (&#x27;name&#x27;)<br/>9  );     </div></div></div></div></div><div class="ring-container"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div></div><div class="code-block-animation" data-w-id="33d2a272-80cf-ab6d-4216-3a18a1eb265d" data-animation-type="lottie" data-src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/67262afdbd17ff787449a8b2_optimized_code-terminal.lottie" data-loop="1" data-direction="1" data-autoplay="1" data-is-ix2-target="0" data-renderer="svg" data-default-duration="0" data-duration="8"></div></div><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb68-f872e21a" class="home_feature-section-inline-chat_content"><div class="margin-bottom margin-small"><h2 class="heading-style-h2 animate-text"><span class="neutral-heading">Inline Chat:</span><br/>Collaborate and code more efficiently with AI-driven inline chat.</h2></div><div class="margin-bottom margin-medium"><p class="text-size-medium animate-text">TabbyML&#x27;s inline chat feature allows you to communicate with your AI coding assistant in real-time, making coding more efficient and collaborative.</p></div><div class="w-layout-grid home_feature-section-inline-chat_item-list"><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb70-f872e21a" class="home_feature-section-inline-chat_text-wrapper"><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h6 animate-text">Improved Efficiency</h3></div><p class="animate-text">Enhance teamwork by keeping conversations contextually tied to the code, making collaboration more efficient and focused.</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb76-f872e21a" class="home_feature-section-inline-chat_text-wrapper"><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h6 animate-text">Seamless Collaboration</h3></div><p class="animate-text">Engage in discussions, ask questions, and receive AI-driven suggestions, all without leaving your code editor.</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div></div></div></div></div></div></section><section id="data-connectors" class="section_data-connectors"><div class="padding-global"><div class="container-large"><div class="padding-section-medium"><div class="w-layout-grid home_feature-section-data-connectors_component"><div class="home_feature-section-data-connectors_content"><div class="margin-bottom margin-small"><h2 class="heading-style-h2 animate-text"><span class="neutral-heading">Data Connectors:</span><br/>Seamlessly connect to various data sources for enriched coding assistance.</h2></div><div class="margin-bottom margin-medium"><p class="text-size-medium animate-text">Tabby’s Context Providers allow you to pull in data from multiple sources, enriching the AI’s ability to understand your project’s unique context.</p></div><div class="w-layout-grid home_feature-section-data-connectors_item-list"><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb89-f872e21a" class="home_feature-section-data-connectors_text-wrapper"><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h6 animate-text">Easy Integration</h3></div><p class="animate-text">Whether it’s pulling documentation, reading configuration files, or accessing external APIs, Tabby uses this information to offer more relevant suggestions and insights.</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div id="w-node-_3d198f8f-6399-9c43-b6c3-9e2bd0c6cb8f-f872e21a" class="home_feature-section-data-connectors_text-wrapper"><div class="margin-bottom margin-xsmall"><h3 class="heading-style-h6 animate-text">Deeper Understanding</h3></div><p class="animate-text">Create a smarter, more aware coding assistant that truly understands your project.</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div></div></div><div data-w-id="3d198f8f-6399-9c43-b6c3-9e2bd0c6cb95" style="opacity:0" class="home_feature-section-data-connectors_image-wrapper no-bg"><div class="content-img-1"><div class="coming-soon-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6723ac380fa6331f1c1147bd_more%20coming%20soon%20(2).svg" loading="lazy" width="252" alt="" class="connector-tile coming"/><div class="absolute-text">coming soon</div></div><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fd57b235dab6043af00186_image%20965.avif" loading="lazy" alt="" class="connector-tile doc"/><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fd53b230e6a4ef58454bd3_Frame%202.svg" loading="lazy" alt="Github logo" class="connector-tile"/><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fd53b2aab2ac76eafec78e_Frame%201.svg" loading="lazy" alt="git logo" class="connector-tile"/><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fd53b2b4b18bf3ded9ce1c_Frame.svg" loading="lazy" alt="gitlab logo" class="connector-tile"/></div><div class="context-animation w-embed"><pre id="ascii-art-2" class="ascii-art-2" data-detectors="none"></pre></div><div class="code-block-animation-short content-img-2"><div class="row"><img loading="lazy" src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fd48000f31704108fdda90_tabby%20logomark%20%404x.avif" alt="Tabby Logo" class="tabby-avatar"/><div class="text-color-white">Tabby</div></div><div class="row"><div class="text-color-white textt-style-codeblock text-weight-semibold animate-text">Read all files ✔</div></div><div class="row"><div class="text-color-white textt-style-codeblock animate-text">Happy to help! Based on what I learned from the docs in your repository, the solution you are looking for should be implemented as follows:</div></div></div></div></div></div></div></div></section><section class="section_blog38 hide"></section><section class="section_community_cta"><div class="padding-global"><div class="padding-section-large"><div class="text-align-center"><div class="margin-bottom margin-small"><div class="home_cta_heading-top"><h2 class="heading-style-h2">Join the TabbyML Community</h2></div><div class="home_cta_heading-bottom"><h2 class="heading-style-h2 animate-text">Get Involved Today</h2></div></div><div class="margin-bottom margin-small"><div class="container-small"><p class="text-size-medium animate-text">Connect with other TabbyML users, get answers, and collaborate on open-source projects.</p></div></div><div class="margin-bottom margin-small"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6724bad8a4ab7453884bd7fe_avatar%20group%20neutral%20(1).avif" loading="lazy" sizes="(max-width: 6377px) 100vw, 6377px" srcset="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6724bad8a4ab7453884bd7fe_avatar%20group%20neutral%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6724bad8a4ab7453884bd7fe_avatar%20group%20neutral%20(1)-p-800.png 800w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6724bad8a4ab7453884bd7fe_avatar%20group%20neutral%20(1)-p-1080.png 1080w, https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6724bad8a4ab7453884bd7fe_avatar%20group%20neutral%20(1).avif 6377w" alt="" class="avatar-group"/></div><div class="margin-top margin-medium"><div class="button-group is-center"><a href="https://links.tabbyml.com/join-slack-landing" target="_blank" class="button jade-on-light w-button">Join Our Slack</a><a href="https://tabby.tabbyml.com/blog" target="_blank" class="button is-secondary w-button">Browse Our Blog</a></div></div></div></div></div></section><section class="section_home_logo-list"><div class="padding-global"><div class="container-large"><div class="padding-section-medium"><div class="margin-bottom margin-medium"><div class="text-align-center"><div class="max-width-large align-center"><h3 class="text-size-medium animate-text">Partnering with Trusted AI tech companies around the globe</h3></div></div></div><div class="margin-bottom margin-huge"><div class="_3-col-logo-grid"><a href="https://mistral.ai/" target="_blank" class="logo-wrapper spaced w-inline-block"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7eeea67e6b686451fae07_Mistral.webp" loading="lazy" alt="Mistral AI logo" class="home_logo-list_logo"/><div class="corner top-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></a><a href="https://www.deepseek.com/" target="_blank" class="logo-wrapper spaced w-inline-block"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6723aa2ff9d459f9e4426044_deepseeklogo.webp" loading="lazy" alt="deepseek logo" class="home_logo-list_logo"/><div class="corner top-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></a><a href="https://qwenlm.github.io/" target="_blank" class="logo-wrapper spaced w-inline-block"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/6723aa3c0617fdc18d04becc_quenlogo.avif" loading="lazy" alt="quen logo" class="home_logo-list_logo"/><div class="corner top-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></a><a href="https://www.voyageai.com/" target="_blank" class="logo-wrapper w-inline-block"><div class="home_logo-list_logo width w-embed"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300.000000 57.000000" preserveAspectRatio="xMidYMid meet">
+<g transform="translate(0.000000,57.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+<path d="M2505 368 c-38 -84 -86 -188 -106 -230 l-38 -78 27 0 c24 0 30 7 55
+75 l28 75 100 0 100 0 25 -55 c13 -31 24 -64 24 -75 0 -17 7 -20 44 -20 l43 0
+-37 73 c-20 39 -68 143 -106 229 -38 87 -74 158 -80 158 -5 0 -41 -69 -79
+-152z m110 -30 c22 -51 41 -95 42 -98 2 -3 -36 -6 -83 -7 -76 -1 -85 0 -81 15
+12 40 72 182 77 182 3 0 24 -41 45 -92z"></path>
+<path d="M63 493 c19 -61 197 -438 209 -440 10 -2 147 282 216 449 2 4 -10 8
+-27 8 -23 0 -31 -5 -31 -17 0 -16 -142 -365 -146 -360 -8 11 -144 329 -149
+350 -6 23 -12 27 -42 27 -29 0 -34 -3 -30 -17z"></path>
+<path d="M2855 285 l0 -225 30 0 30 0 0 225 0 225 -30 0 -30 0 0 -225z"></path>
+<path d="M588 380 c-55 -30 -82 -74 -86 -145 -3 -50 0 -66 20 -95 39 -58 82
+-80 153 -80 68 0 110 21 149 73 32 43 30 150 -3 196 -47 66 -158 90 -233 51z
+m133 -16 c59 -30 89 -156 54 -224 -45 -87 -162 -78 -201 16 -18 44 -18 128 1
+164 28 55 90 73 146 44z"></path>
+<path d="M935 303 l76 -98 -7 -72 -6 -73 33 0 34 0 -3 78 -4 77 71 93 c65 85
+68 92 46 92 -15 0 -29 -9 -36 -22 -18 -33 -90 -128 -98 -128 -6 1 -67 85 -88
+122 -8 15 -24 23 -53 25 l-41 4 76 -98z"></path>
+<path d="M1257 230 c-82 -169 -83 -170 -57 -170 17 0 27 6 27 15 0 8 7 31 17
+52 l17 38 79 0 78 1 16 -34 c9 -18 16 -42 16 -52 0 -17 7 -20 41 -20 22 0 39
+3 37 8 -2 4 -39 80 -83 170 -43 89 -84 162 -92 162 -7 0 -50 -76 -96 -170z
+m90 -38 c-33 -2 -61 -1 -63 1 -2 2 10 34 26 71 l31 68 33 -68 33 -69 -60 -3z"></path>
+<path d="M1665 386 c-37 -16 -84 -63 -97 -96 -13 -35 -12 -104 2 -132 49 -94
+182 -134 280 -83 24 12 29 22 32 64 3 49 3 49 -30 53 l-33 4 3 -45 c4 -61 -5
+-71 -60 -71 -93 0 -142 57 -142 164 0 44 5 60 25 85 47 55 136 65 184 20 30
+-28 35 -20 11 19 -19 31 -22 32 -82 32 -35 -1 -76 -7 -93 -14z"></path>
+<path d="M1955 230 l0 -170 91 0 c76 0 93 3 98 16 4 9 5 18 4 20 -2 1 -31 -1
+-66 -5 -34 -4 -64 -5 -67 -3 -3 3 -5 36 -5 73 l0 68 55 -6 c49 -5 55 -4 55 13
+0 17 -6 19 -55 16 l-55 -4 0 61 0 61 64 0 c48 0 65 4 70 15 4 13 -10 15 -92
+15 l-97 0 0 -170z"></path>
+</g>
+</svg></div><div class="corner top-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></a></div></div><div class="margin-bottom margin-medium"><div class="text-align-center"><div class="max-width-large align-center"><h3 class="text-size-medium animate-text">Supports the languages, libraries, and IDEs you use</h3></div></div></div><div class="home_logo-list_component"><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b71e5baf633e8d4ec4_image-57.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>VS Code</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b99f7583d0293c49dd_NameNeovim-SizeLarge.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>Neovim</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b6ec39e4dc426b852f_image-40.png.webp" loading="lazy" alt="" class="home_logo-list_logo"/><p>IntelliJ</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b6074cbc68630d22e4_image-58.png.webp" loading="lazy" alt="" class="home_logo-list_logo"/><p>Eclipse</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b9ad44d7ecdbe47670_android-studio.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>Android <br/>Studio</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b83dbcfed999133857_image-40-3.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>AppCode</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b82835e34978a4d76f_image-40-2.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>CLion</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b7fa61cbfcaab368e7_image-40.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>GoLand</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b62402e05433520ba0_php-storm.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>PhpStorm</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b9bab401b4de46c185_image-40-1.png.webp" loading="lazy" alt="" class="home_logo-list_logo"/><p>PyCharm</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7eb73ecf3474c0344601a_rider.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>Rider</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b85d91f494c1ae3c31_image-40-1.svg" loading="lazy" alt="" class="home_logo-list_logo"/><p>RubyMine</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div><div class="logo-wrapper"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e7e9b8ecf3474c0342d4f5_image-40-2.png.webp" loading="lazy" alt="" class="home_logo-list_logo"/><p>WebStorm</p><div class="corner top-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner top-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div><div class="corner right w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M220 128a4 4 0 0 1-4 4h-84v84a4 4 0 0 1-8 0v-84H40a4 4 0 0 1 0-8h84V40a4 4 0 0 1 8 0v84h84a4 4 0 0 1 4 4"></path></svg></div></div></div></div></div></div></section><section class="section_home_newsletter"><div class="padding-global z-index-2"><div class="container-large"><div class="padding-xlarge"><div class="div-block-6"><div class="margin-bottom margin-small"><h2 class="heading-style-h2 animate-text">Stay Updated with Tabby News</h2></div><p class="text-size-medium animate-text">Subscribe to our <a href="https://newsletter.tabbyml.com/archive" class="link-3"><strong>newsletter</strong></a> for the latest updates and news about Tabby.</p><div class="margin-top margin-medium"><div class="home_newsletter_form-block w-form"><form id="email-form" name="email-form" data-name="Email Form" action="https://wsxiaoys-subscribetabby.web.val.run" method="post" class="home_newsletter_form" data-wf-page-id="66d758dfc1a1472af872e21a" data-wf-element-id="f27b2e20-cc17-7168-083c-edfb86062b18"><div class="signup-form-wrapper"><input class="form_input w-node-f27b2e20-cc17-7168-083c-edfb86062b1a-86062b0c w-input" maxlength="256" name="email" data-name="email" placeholder="Share Your Email" type="email" id="email-4" required=""/><input type="submit" data-wait="Please wait..." class="button submit w-button" value="[ JOIN NOW ]"/></div><div class="text-size-tiny">By joining, you agree to our <a href="/terms" class="link-2"><strong class="bold-text">Terms and Conditions</strong></a>.</div></form><div class="success-message w-form-done"><div class="success-text">Thank you! We&#x27;ve received your submission.</div></div><div class="error-message w-form-fail"><div class="error-text">Oops! Something went wrong. Please try again.</div></div></div></div></div></div></div></div><div class="home_newsletter_background-image-wrapper"><div class="newsletter-shader"></div><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66daf57ccebc3aeaf1b82e9e_ascii-art-_2_.svg" loading="lazy" alt="" class="background-video"/></div></section><section class="section_cta"><div class="padding-global"><div class="container-large"><div class="padding-top padding-huge"><div class="heading-wrapper"><div class="max-width-medium align-center"><div class="margin-bottom margin-small"><h2 scrub-each-word="" text-split="" class="heading-style-h2">Discover Tabby Unlock Your Coding Potential<br/></h2></div><div text-split="" words-slide-from-right="" class="animate-text">Explore the Power of Tabby, the Self-Hosted AI Coding Assistant<br/></div></div></div><div class="wrapper-full"><div class="cta-card"><div class="ascii-opensource"><div class="code-embed-2 w-embed"><div style="text-align: center; font-family: monospace; font-size: 0.5rem; line-height: 1 ;display: inline-block; border-radius: 8px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); user-select: none; text-decoration: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-text-decoration-skip: ink;">
+  <pre style="margin: 0; padding: 0; white-space: pre;">
+                                                                                                             
+                                                                                                             
+                                                                                                             
+                                                                                                             
+333                                                                            333333                        
+444   7                                                                       66466                          
+00   313333                                                                 0000                             
+   55555                                                                                                  331
+  666                                                                                                    444 
+888       777777                                                                                        888  
+0       3311                                                                                            0    
+    222222                                                                                                   
+  455555         77777777                                                                                    
+ 666664       1111117                                                                                        
+999999     3333333                                                                                    7      
+8888     2222222   77777777                                                                    777           
+000    5555555   1111111                                                                     33333           
+0   4444444    1111113                                                                     55555             
+  6666666    2333333                                                                      66664              
+ 999999    2222222                           7                                           8888                
+888888    555555      77777777     77777777                                              00                  
+0000   44444444     77777777    177777777                                                                    
+00  4444444446   111111111    11111111                                                                       
+0  666666666   13313131    3331313        777777                                                             
+ 999999999    333333     3333333        777777                                                               
+8888888      222223    2222222        1111117                                                                
+0000       222222     2222225      11111111                                                                  
+000     55555555    5555555     333333333    7                                                               
+0      5444444   544444445    3333322                                                                        
+      444444   4444444444  2222222                                                             7             
+      6666  66666666666 5552522   7 777   777 77    7 7   7                                  7               
+     6666 66666666666  55555  7777777777  7777     7777   7777       7 7777       7 77 77 7      7 7   777   
+   999999999999999    4444  7777777777 777777    177777  777777     777777  7777777777        7777 7777777   
+ 88898889888898     4444 111111111   111111     1111111  77777    777777 1777777777         717777777777     
+88888888888        666 11111111    111111     11111111  11111    711111111111111          1111111111111      
+0000000          666 3131313     3131313     11313133  11113    111111111111           111111111111111       
+00000         9999  333333      3333333    33333333   13333   3333333333         333333333333333311          
+000        999999  33333      3333333     333333     3333    3333333          33333333333333                 
+0       8888888  222222    222222222    222222     3232    32332            3323232323223                    
+    88888880    22222    222222222   2222222     2222    2222             2222222222222                      
+ 00000000     555555    55555555  255555552    2222    22222            222222222222                         
+000000       55555    55555555 5555555555    5555   255555            5555555555552                          
+0000       555555    555555555555555554    5555   55555555          555555555555                             
+00      4444444     44444444444444445    44444 4444444445         44444444445                                
+      44444444     444444444444444      444444444444 4444       4444444444                                   
+    46666664      66666666666664       44444444644   444      46444444                                       
+ 66666666        6666666666666        666666666    6666      666666                                          
+6969666        66969696969696       96666666     66666      66666     777777777    777777                    
+99999        99999999999999       9999999      999999      99999     111111113    11111                      
+99         999999999999        9999999        999999      99999    333333333     33333                       
+         888888888      9988888888898       8888899     888889    22222222      22222   77777777             
+      888888888      88888888888888      8888888     88888888   55555555       5555    111111                
+    088888888      0888888888888       088888      88888888   444444444      44444    22222                  
+  000000000      00000000000        000000      0000000000  666666666      66666    55555      1111111       
+0000000000     000000000     00000000000    000000000000   99999999      999999    66666     2222222         
+0 000000    000000000   0000000000000    0000000000000    8888888      888888   9999999    4444444           
+000000    00000000    0000000000000   00000000000000     00000      0000000   0000000    89999998         7  
+000    00000000     0000000000000   000000000000000    00000       000000   00000000    000000   9999999     
+  </pre>
+</div></div></div><div class="gradient-holo mbm-color-dodge clickable-off"></div><div class="w-layout-grid holo-card-content"><div id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bfe0-4f64bfac" class="margin-bottom margin-small text-align-center"><h3 class="heading-card">Get Started with our Community Plan Today</h3></div><a id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bfe3-4f64bfac" href="https://tabby.tabbyml.com/docs/welcome/" target="_blank" class="button blue-on-dark w-inline-block"><div>Get Started</div><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974c0 4.406 2.857 8.145 6.821 9.465c.499.09.679-.217.679-.481c0-.237-.008-.865-.011-1.696c-2.775.602-3.361-1.338-3.361-1.338c-.452-1.152-1.107-1.459-1.107-1.459c-.905-.619.069-.605.069-.605c1.002.07 1.527 1.028 1.527 1.028c.89 1.524 2.336 1.084 2.902.829c.091-.645.351-1.085.635-1.334c-2.214-.251-4.542-1.107-4.542-4.93c0-1.087.389-1.979 1.024-2.675c-.101-.253-.446-1.268.099-2.64c0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336a9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021c.545 1.372.203 2.387.099 2.64c.64.696 1.024 1.587 1.024 2.675c0 3.833-2.33 4.675-4.552 4.922c.355.308.675.916.675 1.846c0 1.334-.012 2.41-.012 2.737c0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974C22 6.465 17.535 2 12.026 2z" fill="currentColor"></path></svg></div></a><div class="hosted-content_item-list-blogpage animate-text"><div id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bfe8-4f64bfac" class="list_item"><div class="layout18_item-icon-wrapper"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-9 14l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></div></div><div class="layout18_item-text-wrapper"><p>Simple self-onboarding</p></div></div><div id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bfee-4f64bfac" class="list_item"><div class="layout18_item-icon-wrapper"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-9 14l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></div></div><div class="layout18_item-text-wrapper"><p>Free community plan</p></div></div><div id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bff4-4f64bfac" class="list_item"><div class="layout18_item-icon-wrapper"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-9 14l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></div></div><div class="layout18_item-text-wrapper"><p>Local-first deployment</p></div></div></div></div></div><div class="cta-card"><div class="ascii-exterprise"><div class="code-embed-3 w-embed"><div style="text-align: center; font-family: monospace; font-size: 0.5rem; line-height: 1; display: inline-block; border-radius: 8px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); user-select: none; text-decoration: none; -webkit-user-select: none; -webkit-touch-callout: none;">
+<pre style="margin: 0; padding: 0; white-space: pre; user-select: none; -webkit-user-select: none; text-decoration: none; -webkit-text-decoration: none; -webkit-text-decoration-color: transparent; text-rendering: optimizeLegibility; text-decoration-skip-ink: none;">
+<span style="display: inline-block; user-select: none; text-decoration: none; -webkit-text-decoration: none; -webkit-text-decoration-color: transparent; text-rendering: optimizeLegibility; text-decoration-skip-ink: none;">
+
+  
+333                                                                            333333                        
+444   7                                                                       66466                          
+00   313333                                                                 0000                             
+   55555                                                                                                  331
+  666                                                                                                    444 
+888       777777                                                                                        888  
+0       3311                                                                                            0    
+    222222                                                                                                   
+  455555         77777777                                                                                    
+ 666664       1111117                                                                                        
+999999     3333333                                                                                    7      
+8888     2222222   77777777                                                                    777           
+000    5555555   1111111                                                                     33333           
+0   4444444    1111113                                                                     55555             
+  6666666    2333333                                                                      66664              
+ 999999    2222222                           7                                           8888                
+888888    555555      77777777     77777777                                              00                  
+0000   44444444     77777777    177777777                                                                    
+00  4444444446   111111111    11111111                                                                       
+0  666666666   13313131    3331313        777777                                                             
+ 999999999    333333     3333333        777777                                                               
+8888888      222223    2222222        1111117                                                                
+0000       222222     2222225      11111111                                                                  
+000     55555555    5555555     333333333    7                                                               
+0      5444444   544444445    3333322                                                                        
+      444444   4444444444  2222222                                                             7             
+      6666  66666666666 5552522   7 777   777 77    7 7   7                                  7               
+     6666 66666666666  55555  7777777777  7777     7777   7777       7 7777       7 77 77 7      7 7   777   
+   999999999999999    4444  7777777777 777777    177777  777777     777777  7777777777        7777 7777777   
+ 88898889888898     4444 111111111   111111     1111111  77777    777777 1777777777         717777777777     
+88888888888        666 11111111    111111     11111111  11111    711111111111111          1111111111111      
+0000000          666 3131313     3131313     11313133  11113    111111111111           111111111111111       
+00000         9999  333333      3333333    33333333   13333   3333333333         333333333333333311          
+000        999999  33333      3333333     333333     3333    3333333          33333333333333                 
+0       8888888  222222    222222222    222222     3232    32332            3323232323223                    
+    88888880    22222    222222222   2222222     2222    2222             2222222222222                      
+ 00000000     555555    55555555  255555552    2222    22222            222222222222                         
+000000       55555    55555555 5555555555    5555   255555            5555555555552                          
+0000       555555    555555555555555554    5555   55555555          555555555555                             
+00      4444444     44444444444444445    44444 4444444445         44444444445                                
+      44444444     444444444444444      444444444444 4444       4444444444                                   
+    46666664      66666666666664       44444444644   444      46444444                                       
+ 66666666        6666666666666        666666666    6666      666666                                          
+6969666        66969696969696       96666666     66666      66666     777777777    777777                    
+99999        99999999999999       9999999      999999      99999     111111113    11111                      
+99         999999999999        9999999        999999      99999    333333333     33333                       
+         888888888      9988888888898       8888899     888889    22222222      22222   77777777             
+      888888888      88888888888888      8888888     88888888   55555555       5555    111111                
+    088888888      0888888888888       088888      88888888   444444444      44444    22222                  
+  000000000      00000000000        000000      0000000000  666666666      66666    55555      1111111       
+0000000000     000000000     00000000000    000000000000   99999999      999999    66666     2222222         
+0 000000    000000000   0000000000000    0000000000000    8888888      888888   9999999    4444444           
+000000    00000000    0000000000000   00000000000000     00000      0000000   0000000    89999998         7  
+000    00000000     0000000000000   000000000000000    00000       000000   00000000    000000   9999999     
+</span>
+</pre>
+</div></div></div><div class="gradient-holo mbm-color-dodge clickable-off"></div><div class="w-layout-grid holo-card-content"><div id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bfc2-4f64bfac" class="margin-bottom margin-small text-align-center"><h3 class="heading-card animate-text">Explore Full Features with Team or Enterprise Plans </h3></div><a id="w-node-_88eb24aa-4b8b-07d9-cdb5-563c3912addc-4f64bfac" href="https://links.tabbyml.com/schedule-a-demo" target="_blank" class="button is-cta w-inline-block"><div>BOOK A DEMO 🚀</div></a><div class="hosted-content_item-list-symbol animate-text"><div id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bfca-4f64bfac" class="list_item"><div class="layout18_item-icon-wrapper"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-9 14l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></div></div><div class="layout18_item-text-wrapper"><p>Enterprise-first experience</p></div></div><div id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bfd0-4f64bfac" class="list_item"><div class="layout18_item-icon-wrapper"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-9 14l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></div></div><div class="layout18_item-text-wrapper"><p>Flexible deployment options</p></div></div><div id="w-node-c69b9f71-a509-77d1-437d-6e4c4f64bfd6-4f64bfac" class="list_item"><div class="layout18_item-icon-wrapper"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-9 14l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg></div></div><div class="layout18_item-text-wrapper"><p>Enhanced security support</p></div></div></div></div></div></div></div></div></div><div class="cta-bg"><div class="cta-visual w-embed"><pre id="ascii-art" class="ascii-art"></pre></div><div class="video-overlay-pricing w-embed"><pre id="ascii-art" class="ascii-art"></pre></div></div></section></main><footer class="footer2_component"><div class="padding-global"><div class="container-large"><div class="padding-vertical padding-xxlarge"><div class="padding-bottom padding-xxlarge"><div class="w-layout-grid footer2_top-wrapper"><div class="footer2_right-wrapper"><div class="margin-bottom margin-huge"><a href="/" id="w-node-a86d66e8-193a-d4ba-c03e-95082af91963-2af9195c" aria-current="page" class="footer2_logo-link w-nav-brand w--current"><img src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e2e208df45a0d1458f4208_Tabby_darkbg_logo.avif" loading="lazy" alt="tabby logo"/></a></div><div class="margin-bottom margin-xsmall"><div class="text-weight-semibold">Join Our Newsletter</div></div><div class="footer2_form-block w-form"><form id="email-form" name="email-form" data-name="Email Form" action="https://wsxiaoys-subscribetabby.web.val.run" method="post" class="footer2_form" data-wf-page-id="66d758dfc1a1472af872e21a" data-wf-element-id="a86d66e8-193a-d4ba-c03e-95082af91997"><input class="form_input-footer w-node-a86d66e8-193a-d4ba-c03e-95082af91998-2af9195c w-input" maxlength="256" name="email" data-name="email" placeholder="Share Your Email" type="email" id="email-5" required=""/><input type="submit" data-wait="Please wait..." class="button submit-footer w-button" value="[ Submit ]"/></form><div class="text-size-tiny">Join our <a href="https://newsletter.tabbyml.com/archive" class="link"><strong>Newsletter</strong></a> to keep updated on our news!</div><div class="success-message w-form-done"><div>Thank you! Your subscription has been received!</div></div><div class="error-message w-form-fail"><div>Oops! Something went wrong. Please try again.</div></div></div></div><div class="w-layout-grid footer2_left-wrapper"><div class="footer2_link-list"><div class="margin-bottom margin-xsmall"></div></div><div class="footer2_link-list"><div class="margin-bottom margin-xsmall"><div class="text-weight-semibold">Our Product</div></div><a href="/#features" class="footer2_link">Features</a><a href="/pricing" class="footer2_link">Pricing</a><a href="https://tabby.tabbyml.com/docs/welcome/" target="_blank" class="footer2_link">Docs</a></div><div class="footer2_link-list"><div class="margin-bottom margin-xsmall"><div class="text-weight-semibold">Join Our Community</div></div><a href="https://links.tabbyml.com/join-slack" target="_blank" class="footer2_link">Slack</a><a href="https://github.com/TabbyML/tabby" target="_blank" class="footer2_link">Github</a><a href="https://tabby.tabbyml.com/blog" class="footer2_link">Blog</a></div></div></div></div><div class="line-divider"></div><div class="padding-top padding-medium"><div class="footer2_bottom-wrapper"><div class="w-layout-grid footer2_legal-list"><div id="w-node-a86d66e8-193a-d4ba-c03e-95082af919a7-2af9195c" class="footer2_credit-text">© 2024 TabbyML, Inc. All rights reserved.</div><a id="w-node-a86d66e8-193a-d4ba-c03e-95082af919a9-2af9195c" href="#" class="footer2_legal-link hide">Privacy Policy</a><a id="w-node-a86d66e8-193a-d4ba-c03e-95082af919ab-2af9195c" href="/terms" class="footer2_legal-link">Terms of Service</a><a id="w-node-_07ec7b2c-b3c8-b3d1-5206-b37e7d4e3e8a-2af9195c" href="/privacy" class="footer2_legal-link">Privacy</a></div><div class="w-layout-grid footer2_social-list"><a href="https://links.tabbyml.com/join-slack" target="_blank" class="footer2_social-link w-inline-block"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M6.194 14.644c0 1.16-.943 2.107-2.103 2.107a2.11 2.11 0 0 1-2.104-2.107a2.11 2.11 0 0 1 2.104-2.106h2.103v2.106zm1.061 0c0-1.16.944-2.106 2.104-2.106a2.11 2.11 0 0 1 2.103 2.106v5.274a2.11 2.11 0 0 1-2.103 2.106a2.108 2.108 0 0 1-2.104-2.106v-5.274zm2.104-8.455c-1.16 0-2.104-.948-2.104-2.107s.944-2.106 2.104-2.106a2.11 2.11 0 0 1 2.103 2.106v2.107H9.359zm0 1.06a2.11 2.11 0 0 1 2.103 2.107a2.11 2.11 0 0 1-2.103 2.106H4.092a2.11 2.11 0 0 1-2.104-2.106a2.11 2.11 0 0 1 2.104-2.107h5.267zm8.447 2.107c0-1.16.943-2.107 2.103-2.107a2.11 2.11 0 0 1 2.104 2.107a2.11 2.11 0 0 1-2.104 2.106h-2.103V9.356zm-1.061 0c0 1.16-.944 2.106-2.104 2.106a2.11 2.11 0 0 1-2.103-2.106V4.082a2.11 2.11 0 0 1 2.103-2.106c1.16 0 2.104.946 2.104 2.106v5.274zm-2.104 8.455c1.16 0 2.104.948 2.104 2.107s-.944 2.106-2.104 2.106a2.11 2.11 0 0 1-2.103-2.106v-2.107h2.103zm0-1.06a2.11 2.11 0 0 1-2.103-2.107a2.11 2.11 0 0 1 2.103-2.106h5.268a2.11 2.11 0 0 1 2.104 2.106a2.11 2.11 0 0 1-2.104 2.107h-5.268z" fill="currentColor"></path></svg></div></a><a href="https://github.com/TabbyML/tabby" target="_blank" class="footer2_social-link w-inline-block"><div class="icon-embed-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974c0 4.406 2.857 8.145 6.821 9.465c.499.09.679-.217.679-.481c0-.237-.008-.865-.011-1.696c-2.775.602-3.361-1.338-3.361-1.338c-.452-1.152-1.107-1.459-1.107-1.459c-.905-.619.069-.605.069-.605c1.002.07 1.527 1.028 1.527 1.028c.89 1.524 2.336 1.084 2.902.829c.091-.645.351-1.085.635-1.334c-2.214-.251-4.542-1.107-4.542-4.93c0-1.087.389-1.979 1.024-2.675c-.101-.253-.446-1.268.099-2.64c0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336a9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021c.545 1.372.203 2.387.099 2.64c.64.696 1.024 1.587 1.024 2.675c0 3.833-2.33 4.675-4.552 4.922c.355.308.675.916.675 1.846c0 1.334-.012 2.41-.012 2.737c0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974C22 6.465 17.535 2 12.026 2z" fill="currentColor"></path></svg></div></a><a href="https://x.com/Tabby_ML" target="_blank" class="footer2_social-link w-inline-block"><div class="icon-embed-small w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.1761 4H19.9362L13.9061 10.7774L21 20H15.4456L11.0951 14.4066L6.11723 20H3.35544L9.80517 12.7508L3 4H8.69545L12.6279 9.11262L17.1761 4ZM16.2073 18.3754H17.7368L7.86441 5.53928H6.2232L16.2073 18.3754Z" fill="CurrentColor"/>
+</svg></div></a><a href="https://www.linkedin.com/company/tabbyml/" target="_blank" class="footer2_social-link w-inline-block"><div class="icon-embed-small w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 3C3.67157 3 3 3.67157 3 4.5V19.5C3 20.3284 3.67157 21 4.5 21H19.5C20.3284 21 21 20.3284 21 19.5V4.5C21 3.67157 20.3284 3 19.5 3H4.5ZM8.52076 7.00272C8.52639 7.95897 7.81061 8.54819 6.96123 8.54397C6.16107 8.53975 5.46357 7.90272 5.46779 7.00413C5.47201 6.15897 6.13998 5.47975 7.00764 5.49944C7.88795 5.51913 8.52639 6.1646 8.52076 7.00272ZM12.2797 9.76176H9.75971H9.7583V18.3216H12.4217V18.1219C12.4217 17.742 12.4214 17.362 12.4211 16.9819V16.9818V16.9816V16.9815V16.9812C12.4203 15.9674 12.4194 14.9532 12.4246 13.9397C12.426 13.6936 12.4372 13.4377 12.5005 13.2028C12.7381 12.3253 13.5271 11.7586 14.4074 11.8979C14.9727 11.9864 15.3467 12.3141 15.5042 12.8471C15.6013 13.1803 15.6449 13.5389 15.6491 13.8863C15.6605 14.9339 15.6589 15.9815 15.6573 17.0292V17.0294C15.6567 17.3992 15.6561 17.769 15.6561 18.1388V18.3202H18.328V18.1149C18.328 17.6629 18.3278 17.211 18.3275 16.7591V16.759V16.7588C18.327 15.6293 18.3264 14.5001 18.3294 13.3702C18.3308 12.8597 18.276 12.3563 18.1508 11.8627C17.9638 11.1286 17.5771 10.5211 16.9485 10.0824C16.5027 9.77019 16.0133 9.5691 15.4663 9.5466C15.404 9.54401 15.3412 9.54062 15.2781 9.53721L15.2781 9.53721L15.2781 9.53721C14.9984 9.52209 14.7141 9.50673 14.4467 9.56066C13.6817 9.71394 13.0096 10.0641 12.5019 10.6814C12.4429 10.7522 12.3852 10.8241 12.2991 10.9314L12.2991 10.9315L12.2797 10.9557V9.76176ZM5.68164 18.3244H8.33242V9.76733H5.68164V18.3244Z" fill="CurrentColor"/>
+</svg></div></a></div></div></div></div></div></div></footer></div><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=66d758dfc1a1472af872e216" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/js/webflow.schunk.aa6bb4058f0f23ff.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/js/webflow.schunk.82f44582d86d1ea9.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/js/webflow.schunk.59d01ef57c358a02.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/js/webflow.schunk.9dfb96661114d3db.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/js/webflow.cc2ef356.eb58873c3d7a66ed.js" type="text/javascript"></script><!-- Linkedin Insight Tag -->
+<script type="text/javascript">
+_linkedin_partner_id = "7059772";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script><script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=7059772&fmt=gif" />
+</noscript>
+
+<!-- posthog -->
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_aBzNGHzlOy2C8n1BBDtH7d4qQsIw9d8T0unVlnKfdxB',{api_host:'https://us.i.posthog.com', person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+        })
+</script><script>
+    // Function to generate a random ASCII character
+    function getRandomChar() {
+        const chars = ['0', '1', ' ']; // You can add more symbols here
+        return chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    // Function to create the gradual randomness effect (right side more random)
+    function createGradientRandomness(asciiArray) {
+        return asciiArray.map(line => 
+            line.split('').map((char, index, arr) => {
+                let randomness = index / arr.length; // More random on the right
+                return Math.random() < randomness ? getRandomChar() : char;
+            }).join('')
+        );
+    }
+
+    // Function to shift the pattern right
+    function shiftRight(asciiArray) {
+        return asciiArray.map(line => line[line.length - 1] + line.slice(0, -1));
+    }
+
+    // Function to animate the stripes with right-side randomness
+    function animateStripes(asciiStripes, elementId) {
+        setInterval(() => {
+            // Apply the gradient randomness
+            let randomizedAscii = createGradientRandomness(asciiStripes);
+
+            // Shift the ASCII art right
+            asciiStripes = shiftRight(asciiStripes);
+
+            // Update the display
+            document.getElementById(elementId).textContent = randomizedAscii.join('\n');
+        }, 100); // Run the animation every 100ms
+    }
+
+    // Function to generate a random digit (0, 1, 8)
+    function getRandomDigit() {
+        const chars = ['0', '1', '8'];
+        return chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    // Function to keep the shape intact and only randomize digits
+    function randomizeDigits(asciiArray) {
+        return asciiArray.map(line => {
+            return line.split('').map(char => {
+                // Only randomize digits, keep other characters intact
+                if (['0', '1', '8'].includes(char)) {
+                    return getRandomDigit();  // Randomize only 0, 1, 8
+                }
+                return char; // Keep non-digit characters as they are
+            }).join('');
+        });
+    }
+
+    // Function to animate the digits to create a surge effect
+    function animateSurgeEffect(asciiStripes, elementId) {
+        setInterval(() => {
+            // Apply randomization to digits while keeping the shape intact
+            let randomizedAscii = randomizeDigits(asciiStripes);
+
+            // Update the display
+            document.getElementById(elementId).textContent = randomizedAscii.join('\n');
+        }, 100); // Run the animation every 100ms
+    }
+
+    // Fetch ASCII art for the first animation (Right-side randomness)
+    fetch("https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66daeef928eab9ba6783ca9f_ascii-art%20(1).txt")
+        .then(response => response.text())
+        .then(data => {
+            data = `${data}\n${data}`;
+            // Split the ASCII text into an array of lines
+            let asciiStripes = data.split("\n").filter(x => !!x);
+
+            // Start the first animation with the right-side randomness
+            animateStripes(asciiStripes, 'ascii-art');
+        })
+        .catch(error => {
+            console.error("Error fetching the ASCII art:", error);
+        });
+
+    // Fetch and animate the second ASCII art (Surge effect, aligned to top)
+    fetch("https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66e80c39e7bc63f425f1cfdd_ascii-art-context.txt")
+        .then(response => response.text())
+        .then(data => {
+            // Split the ASCII text into an array of lines
+            let asciiStripes2 = data.split("\n");
+
+            // Start the surge effect animation
+            animateSurgeEffect(asciiStripes2, 'ascii-art-2');
+        })
+        .catch(error => {
+            console.error("Error fetching the second ASCII art:", error);
+        });
+</script>
+<script>
+// Function to generate a random ASCII character
+function getRandomChar() {
+    const chars = ['0', '1', ' ']; // You can add more symbols here
+    return chars[Math.floor(Math.random() * chars.length)];
+}
+
+// Function to create constant, subtle randomness
+function createSubtleRandomness(asciiArray, randomnessFactor) {
+    return asciiArray.map(line =>
+        line.split('').map(char => {
+            // Constant low-level randomness, controlled by randomnessFactor
+            return Math.random() < randomnessFactor ? getRandomChar() : char;
+        }).join('')
+    );
+}
+
+// Function to animate the ASCII art with constant, subtle randomness
+function animateAsciiConstant(asciiStripes, elementId, randomnessFactor = 0.01, delay = 200) {
+    function update() {
+        // Apply constant, subtle randomness
+        let randomizedAscii = createSubtleRandomness(asciiStripes, randomnessFactor);
+
+        // Update the display
+        document.getElementById(elementId).textContent = randomizedAscii.join('\n');
+
+        // Slow down the updates with setTimeout instead of requestAnimationFrame
+        setTimeout(update, delay); // Control the update speed with delay (in milliseconds)
+    }
+
+    update();
+}
+
+// Fetch and animate ASCII art with constant subtle randomness
+function fetchAndAnimateAscii(url, elementId, randomnessFactor, delay) {
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            // Split the ASCII text into an array of lines
+            let asciiStripes = data.split("\n");
+
+            // Start the constant subtle randomness animation
+            animateAsciiConstant(asciiStripes, elementId, randomnessFactor, delay);
+        })
+        .catch(error => {
+            console.error("Error fetching the ASCII art:", error);
+        });
+}
+
+// Fetch and animate all 4 instances with lower randomness and slower update speeds
+fetchAndAnimateAscii("https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fbe90196c66de5d0bbd07c_t-security.txt", 'ascii-art-a', 0.01, 300);
+fetchAndAnimateAscii("https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fbe9011e5599caec35e3d1_t-config.txt", 'ascii-art-b', 0.01, 300);
+fetchAndAnimateAscii("https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fbe9015d6c88aadac3ea7e_t-control.txt", 'ascii-art-c', 0.01, 300);
+fetchAndAnimateAscii("https://cdn.prod.website-files.com/66d758dfc1a1472af872e216/66fbe87da595317d71ccdb95_t-ai.txt", 'ascii-art-d', 0.01, 300);
+
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Function to initialize greyscale animation and loop it
+    function writeGreyscalePart() {
+      const greyscalePart = document.getElementById("greyscalePart");
+      const inlineGreyscale = document.getElementById("inlineGreyscale");
+
+      // Ensure elements are hidden and reset before starting the animation
+      inlineGreyscale.classList.add("hidden");
+      greyscalePart.classList.add("hidden");
+
+      // Reveal inline greyscale and greyscale part with a fade-in effect
+      setTimeout(() => {
+        inlineGreyscale.classList.remove("hidden");
+        greyscalePart.classList.remove("hidden");
+        greyscalePart.classList.add("fast-write");
+        // updateLineNumbers();
+      }, 2000);
+
+      // Hide greyscalePart and inlineGreyscale after the animation
+      setTimeout(() => {
+        inlineGreyscale.classList.add("hidden");
+        greyscalePart.classList.add("hidden");
+        greyscalePart.classList.remove("fast-write"); // Reset for next loop
+      }, 14000); // Adjust this timing based on the duration of the greyscale animation
+    }
+
+    function animatePythonCodeLoop() {
+      function runAnimation() {
+        writeGreyscalePart();
+
+        setTimeout(() => {
+          document.getElementById("animatedLastLine").innerHTML = "<span class='identifier'>parsed</span>=<span class='keyword'>None</span>";
+          document.getElementById("pythonTypewriter").classList.add("active");
+        }, 4000);
+
+        setTimeout(() => {
+          document.getElementById("pythonTypewriter").classList.remove("active");
+          document.getElementById("animatedLastLine").innerHTML = ""; // Reset content
+          runAnimation(); // Restart after 3-second pause
+        }, 7000);
+      }
+      runAnimation();
+    }
+
+    // IntersectionObserver callback function
+    const callback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (entry.target.id === "pythonTypewriter") {
+            animatePythonCodeLoop();
+          }
+          observer.unobserve(entry.target); // Unobserve to prevent re-triggering
+        }
+      });
+    };
+
+    // Set observer options
+    const options = { root: null, threshold: 0.5 };
+
+    // Create the IntersectionObserver
+    const observer = new IntersectionObserver(callback, options);
+
+    // Target Python typewriter
+    observer.observe(document.querySelector("#pythonTypewriter"));
+  });
+</script>
+
+
+<script>
+// Select all ring-container elements on the page
+const containers = document.querySelectorAll(".ring-container");
+
+containers.forEach((container, index) => {
+  const rings = container.querySelectorAll(".ring"); // Get the rings inside this container
+
+  // Loop through each ring and create an individual animation
+  rings.forEach((ring, ringIndex) => {
+    const tl = gsap.timeline({
+      repeat: -1, // Infinite loop for each ring
+      delay: ringIndex * 1, // Stagger start of each ring for equally spaced effect
+    });
+
+    // Animate each ring to glow outwards and fade out
+    tl.fromTo(ring, 
+      {
+        scale: 0, // Start at nothing
+        opacity: 1, // Fully visible at start
+      },
+      {
+        scale: 2, // Grow outwards
+        opacity: 0, // Fade out at the end
+        duration: 4, // Duration of the pulsing effect
+        ease: "linear", // Consistent movement for seamless looping
+      }
+    );
+  });
+});
+
+</script>
+<script>
+window.onload = function() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Reusable ScrollTrigger batch function
+    const animateBatch = (triggerClass) => {
+        ScrollTrigger.batch(triggerClass, {
+            start: "top 95%", // Trigger when items reach 95% of the viewport height
+            onEnter: (batch) => {
+                gsap.from(batch, {
+                    y: 40, // Move up by 40px
+                    autoAlpha: 0, // Fade in from 0 opacity
+                    duration: 0.2, // Short duration for fast animations
+                    ease: "power1.in", // Smooth easing
+                    stagger: 0.1 // Stagger by 0.1 seconds for overlap
+                });
+            },
+            once: true // Ensure each item animates only once
+        });
+    };
+
+    // Apply the same animation to .why-card, .blog-item, and .logo-wrapper
+    animateBatch(".why-card");
+    animateBatch(".blog-item");
+    animateBatch(".logo-wrapper");
+    animateBatch(".CTA-card");
+};
+</script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to(".section_home_hero", {
+  backgroundColor: "#fff8ed", // Target background color
+  scrollTrigger: {
+    trigger: ".section_home_hero", // Element to trigger the animation
+    start: "bottom 75%", // When the bottom of the section is 75% from the top of the viewport
+    toggleActions: "play none none reverse", // Play on enter, reverse on leave
+  },
+  duration: 0.2, // Duration of the color change animation
+  ease: "power1.out", // Smooth easing
+});
+</script>
+<script>
+  function updateFontSizes() {
+    const asciiElements = [
+      document.getElementById("ascii-art-a"),
+      document.getElementById("ascii-art-b"),
+      document.getElementById("ascii-art-c"),
+      document.getElementById("ascii-art-d")
+    ];
+    const screenWidth = window.innerWidth;
+
+    let fontSize;
+    if (screenWidth <= 576) {
+      fontSize = "1.2vw";
+    } else if (screenWidth <= 768) {
+      fontSize = "0.9vw";
+    } else if (screenWidth <= 992) {
+      fontSize = "0.8vw";
+    } else if (screenWidth <= 1200) {
+      fontSize = "0.5vw";
+    } else {
+      fontSize = "0.35vw"; // Default size
+    }
+
+    // Apply the font size to each ASCII art element
+    asciiElements.forEach(element => {
+      if (element) {
+        element.style.fontSize = fontSize;
+      }
+    });
+  }
+
+  // Initial font size setup
+  updateFontSizes();
+
+  // Update font size on window resize
+  window.addEventListener("resize", updateFontSizes);
+</script>
+
+
+
+
+</body></html>
