@@ -71,6 +71,28 @@ class CustomDecisionTree:
         # Set random seed
         np.random.seed(random_state)
     
+    def get_params(self, deep=True):
+        """Get parameters for this estimator (scikit-learn compatibility)"""
+        return {
+            'max_depth': self.max_depth,
+            'min_samples_split': self.min_samples_split,
+            'min_samples_leaf': self.min_samples_leaf,
+            'min_impurity_decrease': self.min_impurity_decrease,
+            'max_features': self.max_features,
+            'random_state': self.random_state,
+            'criterion': self.criterion,
+            'prune': self.prune
+        }
+    
+    def set_params(self, **params):
+        """Set parameters for this estimator (scikit-learn compatibility)"""
+        for key, value in params.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+            else:
+                raise ValueError(f"Invalid parameter '{key}' for estimator {self.__class__.__name__}")
+        return self
+    
     def _calculate_impurity(self, y: np.ndarray) -> float:
         """Calculate impurity using specified criterion"""
         if len(y) == 0:

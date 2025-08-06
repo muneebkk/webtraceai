@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { 
-  Upload, FileImage, Code, Brain, Zap, AlertCircle, CheckCircle, 
+  Upload, FileImage, Brain, Zap, AlertCircle, CheckCircle, 
   Settings, Info, Target, Shield, Clock, 
   TrendingUp, Sparkles, Eye, Cpu, BarChart3, Activity,
   ChevronRight, Star, Users, Globe, Lock, ArrowRight
@@ -11,8 +11,8 @@ import axios from "axios"
 import "./App.css"
 
 function App() {
+  const API_BASE_URL = 'http://localhost:8000'
   const [selectedFile, setSelectedFile] = useState(null)
-  const [htmlCode, setHtmlCode] = useState("")
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [results, setResults] = useState(null)
   const [dragActive, setDragActive] = useState(false)
@@ -21,6 +21,9 @@ function App() {
   const [models, setModels] = useState([])
   const [showModelInfo, setShowModelInfo] = useState(false)
   const [loadingModels, setLoadingModels] = useState(true)
+  const [visualizationData, setVisualizationData] = useState(null)
+  const [isVisualizing, setIsVisualizing] = useState(false)
+  const [activeTab, setActiveTab] = useState('overview')
 
   // Load available models on component mount
   useEffect(() => {
@@ -29,7 +32,7 @@ function App() {
 
   const loadModels = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/models")
+      const response = await axios.get(`${API_BASE_URL}/api/models`)
       setModels(response.data.models)
     } catch (error) {
       console.error("Failed to load models:", error)
@@ -38,35 +41,46 @@ function App() {
         {
           id: "original",
           name: "Random Forest",
-          description: "Basic Random Forest classifier with all features",
-          accuracy: 73.33,
-          techniques: ["Random Forest Classifier (100 estimators)", "All 19 extracted features", "Simple train-test split (80/20)"],
-          problems_solved: ["Basic AI vs Human classification", "Quick baseline performance"],
-          how_it_works: "Uses an ensemble of decision trees to classify websites.",
-          best_for: "Quick analysis, baseline comparisons",
-          limitations: ["No feature selection", "Potential overfitting", "Lower accuracy on current dataset"]
+          description: "Advanced Random Forest with feature engineering and hyperparameter tuning",
+          accuracy: 78.95,
+          techniques: ["Random Forest Classifier (200-500 estimators)", "Feature engineering (interaction features)", "Advanced hyperparameter tuning"],
+          problems_solved: ["Complex pattern recognition", "Feature importance analysis"],
+          how_it_works: "Uses an ensemble of decision trees with advanced feature engineering.",
+          best_for: "Complex patterns, feature analysis",
+          limitations: ["Black-box model", "Computationally intensive"]
         },
         {
           id: "improved",
           name: "Improved Logistic Regression",
-          description: "Advanced pipeline with feature selection and class balancing",
-          accuracy: 95.24,
-          techniques: ["Logistic Regression", "Feature selection (14/19 features)", "SMOTE for class imbalance", "GridSearchCV hyperparameter tuning"],
-          problems_solved: ["Class imbalance", "Feature redundancy", "Overfitting prevention"],
-          how_it_works: "Uses statistical feature selection and SMOTE to balance the dataset.",
-          best_for: "Production use, highest accuracy",
-          limitations: ["Requires feature scaling", "More complex pipeline"]
+          description: "Advanced pipeline with multiple feature selection methods and class balancing",
+          accuracy: 73.68,
+          techniques: ["Logistic Regression with advanced regularization", "Multiple feature selection methods", "Advanced class balancing"],
+          problems_solved: ["Class imbalance handling", "Feature redundancy elimination"],
+          how_it_works: "Uses multiple feature selection methods and advanced regularization techniques.",
+          best_for: "Interpretable results, production use",
+          limitations: ["Linear decision boundaries", "Requires feature scaling"]
         },
         {
           id: "custom_tree",
           name: "Custom Decision Tree",
-          description: "Custom-built decision tree with pruning and interpretability",
-          accuracy: 93.06,
-          techniques: ["Custom decision tree implementation", "Tree pruning", "Gini/Entropy impurity calculation", "Max depth: 4, Min samples: 8"],
-          problems_solved: ["Model interpretability", "Overfitting through pruning"],
-          how_it_works: "A decision tree built from scratch with pruning to prevent overfitting.",
-          best_for: "Educational purposes, interpretable results",
-          limitations: ["Single decision tree", "Custom implementation"]
+          description: "Custom-built decision tree with pruning and interpretable rules",
+          accuracy: 75.00,
+          techniques: ["Custom decision tree implementation", "Tree pruning", "Rule-based classification"],
+          problems_solved: ["Interpretable decision rules", "Overfitting prevention"],
+          how_it_works: "Uses a custom-built decision tree algorithm with automatic pruning.",
+          best_for: "Interpretable results, rule-based decisions",
+          limitations: ["Limited complexity", "Single decision path"]
+        },
+        {
+          id: "ensemble",
+          name: "Ensemble Model (Voting Classifier)",
+          description: "Combines all three models for maximum accuracy using soft voting",
+          accuracy: 90.00,
+          techniques: ["Voting Classifier with soft voting", "Combines all three models", "Weighted voting (40% RF, 30% LR, 30% Custom)"],
+          problems_solved: ["Maximum accuracy through model combination", "Reduced overfitting risk"],
+          how_it_works: "Combines the predictions of all three models using soft voting with optimized weights.",
+          best_for: "Maximum accuracy, production deployment",
+          limitations: ["Most computationally intensive", "Complex decision process"]
         }
       ])
     } finally {
@@ -124,8 +138,8 @@ function App() {
   }
 
   const handleAnalyze = async () => {
-    if (!selectedFile && !htmlCode.trim()) {
-      alert("Please provide either a screenshot or HTML code for analysis")
+    if (!selectedFile) {
+      alert("Please provide a screenshot for analysis")
       return
     }
 
@@ -133,19 +147,12 @@ function App() {
 
     try {
       const formData = new FormData()
-      
-      if (selectedFile) {
-        formData.append("screenshot", selectedFile)
-      }
-      
-      if (htmlCode.trim()) {
-        formData.append("html_content", htmlCode)
-      }
+      formData.append("screenshot", selectedFile)
 
       // Add model parameter
       formData.append("model", selectedModel)
 
-      const response = await axios.post("http://localhost:8000/api/predict", formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/predict`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -186,9 +193,38 @@ function App() {
     }
   }
 
+  const handleVisualize = async () => {
+    if (!selectedFile) {
+      alert("Please select an image file first.")
+      return
+    }
+
+    setIsVisualizing(true)
+    setVisualizationData(null)
+
+    try {
+      const formData = new FormData()
+      formData.append('screenshot', selectedFile)
+      formData.append('model', selectedModel)
+
+      const response = await axios.post(`${API_BASE_URL}/api/predict-visualization`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+      setVisualizationData(response.data.visualization)
+      setActiveTab('overview')
+    } catch (error) {
+      console.error('Visualization error:', error)
+      alert('Error generating visualization. Please try again.')
+    } finally {
+      setIsVisualizing(false)
+    }
+  }
+
   const resetAnalysis = () => {
     setSelectedFile(null)
-    setHtmlCode("")
     setResults(null)
     setPreviewImage(null)
   }
@@ -430,7 +466,7 @@ function App() {
             </h2>
             
             <p className="text-base lg:text-lg xl:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Choose your preferred AI model and upload a screenshot or HTML code to analyze whether a website was created using AI tools or coded by humans.
+                              Choose your preferred AI model and upload a screenshot to analyze whether a website was created using AI tools or coded by humans.
             </p>
           </div>
 
@@ -540,26 +576,12 @@ function App() {
                 </div>
               </div>
 
-              {/* HTML Code Input */}
-              <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-6 border border-gray-700/50 backdrop-blur-sm shadow-2xl hover:shadow-green-500/10 transition-all duration-300">
-                <h3 className="text-lg lg:text-xl font-bold mb-4 flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl shadow-lg">
-                    <Code className="w-4 h-4 text-white" />
-                  </div>
-                  HTML Code (Optional)
-                </h3>
-                <textarea
-                  value={htmlCode}
-                  onChange={(e) => setHtmlCode(e.target.value)}
-                  placeholder="Paste HTML DOM structure or page source here..."
-                  className="w-full h-32 bg-gray-800/50 border border-gray-600/30 rounded-xl p-4 text-white placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300"
-                />
-              </div>
+
 
               {/* Analyze Button */}
               <button
                 onClick={handleAnalyze}
-                disabled={!selectedFile && !htmlCode.trim() || isAnalyzing}
+                disabled={!selectedFile || isAnalyzing}
                 className="w-full py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-3"
               >
                 {isAnalyzing ? (
@@ -574,6 +596,27 @@ function App() {
                   </>
                 )}
               </button>
+
+              {/* Visualize Button */}
+              {selectedFile && (
+                <button
+                  onClick={handleVisualize}
+                  disabled={isVisualizing}
+                  className="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-3"
+                >
+                  {isVisualizing ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      Generating Visualization...
+                    </>
+                  ) : (
+                    <>
+                      <Eye className="w-5 h-5" />
+                      Visualize Analysis
+                    </>
+                  )}
+                </button>
+              )}
             </div>
 
             {/* Right Column - Results Section */}
@@ -614,7 +657,7 @@ function App() {
                 </div>
               )}
 
-              {results ? (
+              {results && (
                 <>
                   {/* Main Result */}
                   <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-6 border border-gray-700/50 backdrop-blur-sm shadow-2xl">
@@ -678,7 +721,169 @@ function App() {
                     </div>
                   </div>
                 </>
-              ) : !selectedFile ? (
+              )}
+
+              {/* Visualization Tabs */}
+              {visualizationData && (
+                <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-6 border border-gray-700/50 backdrop-blur-sm shadow-2xl">
+                  <h3 className="text-lg lg:text-xl font-bold mb-4 flex items-center gap-3">
+                    <Eye className="w-5 h-5 text-pink-400" />
+                    Detailed Analysis
+                  </h3>
+
+                  {/* Tab Navigation */}
+                  <div className="flex space-x-1 mb-6 bg-gray-800/50 rounded-lg p-1">
+                    {[
+                      { id: 'overview', label: 'Overview', icon: '📊' },
+                      { id: 'features', label: 'Features', icon: '🔍' },
+                      { id: 'decision_path', label: 'Decision Path', icon: '🛤️' },
+                      { id: 'model_comparison', label: 'Model Comparison', icon: '⚖️' },
+                      { id: 'explanation', label: 'Explanation', icon: '📝' }
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-200 ${
+                          activeTab === tab.id
+                            ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                            : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                        }`}
+                      >
+                        <span className="mr-1">{tab.icon}</span>
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Tab Content */}
+                  <div className="min-h-[400px]">
+                    {activeTab === 'overview' && (
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <h4 className="text-xl font-bold text-white mb-2">
+                            {visualizationData.overview.prediction}
+                          </h4>
+                          <p className="text-gray-400 mb-4">
+                            Confidence: {(visualizationData.overview.confidence * 100).toFixed(1)}%
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-3">
+                          {visualizationData.overview.key_insights.map((insight, index) => (
+                            <div key={index} className="p-3 bg-gray-800/50 rounded-lg border border-gray-600/30">
+                              <p className="text-sm text-gray-300">{insight}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'features' && (
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-bold text-white mb-4">Top Features</h4>
+                        <div className="space-y-3">
+                          {visualizationData.features.top_features.map((feature, index) => (
+                            <div key={index} className="p-3 bg-gray-800/50 rounded-lg border border-gray-600/30">
+                              <div className="flex justify-between items-center mb-2">
+                                <span className="font-medium text-white text-sm">{feature.name}</span>
+                                <span className={`text-xs px-2 py-1 rounded ${
+                                  feature.contribution === 'High' ? 'bg-red-500/20 text-red-400' :
+                                  feature.contribution === 'Medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                                  'bg-green-500/20 text-green-400'
+                                }`}>
+                                  {feature.contribution}
+                                </span>
+                              </div>
+                              <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
+                                <div
+                                  className="h-2 rounded-full bg-gradient-to-r from-purple-400 to-blue-400"
+                                  style={{ width: `${feature.percentage}%` }}
+                                />
+                              </div>
+                              <p className="text-xs text-gray-400">
+                                Value: {feature.value.toFixed(2)} | Category: {feature.category}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'decision_path' && (
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-bold text-white mb-4">Decision Process</h4>
+                        <div className="space-y-3">
+                          {visualizationData.decision_path.decision_steps.map((step, index) => (
+                            <div key={index} className="p-3 bg-gray-800/50 rounded-lg border border-gray-600/30">
+                              <div className="flex items-start gap-3">
+                                <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                  {step.step}
+                                </div>
+                                <div className="flex-1">
+                                  <h5 className="font-medium text-white text-sm mb-1">{step.title}</h5>
+                                  <p className="text-xs text-gray-400 mb-1">{step.description}</p>
+                                  <p className="text-xs text-gray-500">{step.details}</p>
+                                </div>
+                                <span className={`text-xs px-2 py-1 rounded ${
+                                  step.contribution === 'High' ? 'bg-red-500/20 text-red-400' :
+                                  'bg-green-500/20 text-green-400'
+                                }`}>
+                                  {step.contribution}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'model_comparison' && (
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-bold text-white mb-4">Model Performance</h4>
+                        <div className="space-y-3">
+                          {Object.entries(visualizationData.model_comparison.model_performance).map(([model, perf]) => (
+                            <div key={model} className="p-3 bg-gray-800/50 rounded-lg border border-gray-600/30">
+                              <div className="flex justify-between items-center mb-2">
+                                <span className="font-medium text-white text-sm capitalize">{model}</span>
+                                <span className="text-purple-400 font-bold">{perf.accuracy}%</span>
+                              </div>
+                              <p className="text-xs text-gray-400 mb-2">{perf.description}</p>
+                              <div className="w-full bg-gray-700 rounded-full h-1">
+                                <div
+                                  className="h-1 rounded-full bg-gradient-to-r from-purple-400 to-blue-400"
+                                  style={{ width: `${perf.accuracy}%` }}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'explanation' && (
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-bold text-white mb-4">Explanation</h4>
+                        <div className="p-3 bg-gray-800/50 rounded-lg border border-gray-600/30">
+                          <p className="text-sm text-gray-300 leading-relaxed">
+                            {visualizationData.explanation.human_readable}
+                          </p>
+                        </div>
+                        
+                        <h5 className="text-md font-bold text-white mt-4">Educational Insights</h5>
+                        <div className="space-y-2">
+                          {visualizationData.explanation.educational_insights.map((insight, index) => (
+                            <div key={index} className="p-2 bg-gray-800/30 rounded border border-gray-600/20">
+                              <p className="text-xs text-gray-400">{insight}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {!selectedFile ? (
                 <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-700/50 backdrop-blur-sm text-center shadow-2xl h-full flex flex-col justify-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-gray-700 to-gray-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <Brain className="w-8 h-8 text-gray-400" />
