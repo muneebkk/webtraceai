@@ -12,6 +12,7 @@ import pickle
 import cv2
 from typing import Dict, List, Tuple, Optional, Any
 from collections import Counter
+from sklearn.base import BaseEstimator, ClassifierMixin
 
 # Add the app directory to the path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'app'))
@@ -33,7 +34,7 @@ class TreeNode:
         self.depth = depth
         self.feature_name = None  # Will be set during training
 
-class CustomDecisionTree:
+class CustomDecisionTree(BaseEstimator, ClassifierMixin):
     """Custom Decision Tree Classifier with advanced features"""
     
     def __init__(self, max_depth: int = 10, min_samples_split: int = 5, 
@@ -259,17 +260,18 @@ class CustomDecisionTree:
         unique, counts = np.unique(y, return_counts=True)
         return unique[np.argmax(counts)]
     
-    def fit(self, X: np.ndarray, y: np.ndarray, feature_names: Optional[List[str]] = None):
+    def fit(self, X: np.ndarray, y: np.ndarray):
         """Fit the decision tree to the data"""
         self.n_features = X.shape[1]
         self.classes = np.unique(y)
         self.n_classes = len(self.classes)
-        self.feature_names = feature_names
         
         # Build the tree
         self.root = self._build_tree(X, y)
         
-        # Set feature names in tree nodes
+        # Set feature names in tree nodes (use default names if not provided)
+        if not hasattr(self, 'feature_names') or self.feature_names is None:
+            self.feature_names = [f"feature_{i}" for i in range(self.n_features)]
         self._set_feature_names(self.root)
         
         # Prune if requested
@@ -277,6 +279,11 @@ class CustomDecisionTree:
             self.root = self._prune_tree(self.root, X, y)
         
         return self
+    
+    def fit_with_names(self, X: np.ndarray, y: np.ndarray, feature_names: Optional[List[str]] = None):
+        """Fit the decision tree with feature names (for backward compatibility)"""
+        self.feature_names = feature_names
+        return self.fit(X, y)
     
     def _set_feature_names(self, node: TreeNode):
         """Set feature names in tree nodes for interpretability"""

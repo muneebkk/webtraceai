@@ -297,9 +297,30 @@ class ModelImprover:
         # Use CustomTreeTrainer with ALL features
         trainer = CustomTreeTrainer()
         
+        # Convert pandas DataFrames to numpy arrays for custom tree
+        if hasattr(X_train, 'values'):
+            X_train_array = X_train.values
+        else:
+            X_train_array = X_train
+            
+        if hasattr(y_train, 'values'):
+            y_train_array = y_train.values
+        else:
+            y_train_array = y_train
+            
+        if hasattr(X_test, 'values'):
+            X_test_array = X_test.values
+        else:
+            X_test_array = X_test
+            
+        if hasattr(y_test, 'values'):
+            y_test_array = y_test.values
+        else:
+            y_test_array = y_test
+        
         # Train with optimized parameters
         model = trainer.train_model(
-            X_train, y_train,
+            X_train_array, y_train_array,
             max_depth=8,  # Increased depth
             min_samples_split=3,  # Reduced for more splits
             min_samples_leaf=1,  # Reduced for more leaves
@@ -308,10 +329,10 @@ class ModelImprover:
         )
         
         # Evaluate
-        y_pred = model.predict(X_test)
-        accuracy = accuracy_score(y_test, y_pred)
-        auc = roc_auc_score(y_test, model.predict_proba(X_test)[:, 1])
-        cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy')
+        y_pred = model.predict(X_test_array)
+        accuracy = accuracy_score(y_test_array, y_pred)
+        auc = roc_auc_score(y_test_array, model.predict_proba(X_test_array)[:, 1])
+        cv_scores = cross_val_score(model, X_train_array, y_train_array, cv=5, scoring='accuracy')
         
         print(f"  ✅ Training completed")
         print(f"  📊 Test Accuracy: {accuracy:.4f}")
@@ -369,6 +390,12 @@ class ModelImprover:
         """Train Ensemble Model combining all three improved models"""
         print("\n🎯 Training Ensemble Model...")
         
+        # Ensure all models are trained
+        if 'original' not in self.models or 'improved' not in self.models or 'custom_tree' not in self.models:
+            print("  ❌ Error: Not all base models are trained!")
+            print(f"  Available models: {list(self.models.keys())}")
+            return None
+        
         # Create ensemble with the three trained models
         ensemble = VotingClassifier(
             estimators=[
@@ -381,13 +408,25 @@ class ModelImprover:
         )
         
         # Train ensemble
-        ensemble.fit(X_train, y_train)
+        print("  🔄 Training ensemble with all three models...")
+        try:
+            ensemble.fit(X_train, y_train)
+            print("  ✅ Ensemble training completed successfully")
+        except Exception as e:
+            print(f"  ❌ Ensemble training failed: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
         
         # Evaluate
-        y_pred = ensemble.predict(X_test)
-        accuracy = accuracy_score(y_test, y_pred)
-        auc = roc_auc_score(y_test, ensemble.predict_proba(X_test)[:, 1])
-        cv_scores = cross_val_score(ensemble, X_train, y_train, cv=5, scoring='accuracy')
+        try:
+            y_pred = ensemble.predict(X_test)
+            accuracy = accuracy_score(y_test, y_pred)
+            auc = roc_auc_score(y_test, ensemble.predict_proba(X_test)[:, 1])
+            cv_scores = cross_val_score(ensemble, X_train, y_train, cv=5, scoring='accuracy')
+        except Exception as e:
+            print(f"  ❌ Ensemble evaluation failed: {e}")
+            return None
         
         print(f"  ✅ Training completed")
         print(f"  📊 Test Accuracy: {accuracy:.4f}")

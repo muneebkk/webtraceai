@@ -213,6 +213,19 @@ class ModelLoader:
             # Convert to numpy array and reshape for sklearn
             X = np.array(features_array).reshape(1, -1)
             
+            # Create DataFrame with feature names to avoid warnings
+            import pandas as pd
+            if hasattr(self, 'feature_mask') and self.feature_mask is not None:
+                # Use selected feature names for improved model
+                selected_feature_names = [self.feature_names[i] for i in self.feature_mask]
+                X_df = pd.DataFrame(X, columns=selected_feature_names)
+            else:
+                # Use all feature names
+                X_df = pd.DataFrame(X, columns=self.feature_names)
+            
+            # Use DataFrame for prediction to preserve feature names
+            X = X_df
+            
             # Scale features if scaler is available (for SVM, Logistic Regression)
             # Only apply scaling if the model actually requires it
             if self.scaler is not None and isinstance(self.model, (SVC, LogisticRegression)):
