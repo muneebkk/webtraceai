@@ -71,17 +71,7 @@ function App() {
           best_for: "Interpretable results, rule-based decisions",
           limitations: ["Limited complexity", "Single decision path"]
         },
-        {
-          id: "ensemble",
-          name: "Ensemble Model (Voting Classifier)",
-          description: "Combines all three models for maximum accuracy using soft voting",
-          accuracy: 90.00,
-          techniques: ["Voting Classifier with soft voting", "Combines all three models", "Weighted voting (40% RF, 30% LR, 30% Custom)"],
-          problems_solved: ["Maximum accuracy through model combination", "Reduced overfitting risk"],
-          how_it_works: "Combines the predictions of all three models using soft voting with optimized weights.",
-          best_for: "Maximum accuracy, production deployment",
-          limitations: ["Most computationally intensive", "Complex decision process"]
-        }
+
       ])
     } finally {
       setLoadingModels(false)

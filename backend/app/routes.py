@@ -119,32 +119,7 @@ async def get_available_models():
                 "Single decision path"
             ]
         },
-        {
-            "id": "ensemble",
-            "name": "Ensemble Model (Voting Classifier)",
-            "description": "Combines all three models for maximum accuracy using soft voting",
-            "accuracy": 90.00,
-            "techniques": [
-                "Voting Classifier with soft voting",
-                "Combines Random Forest, Logistic Regression, and Custom Tree",
-                "Weighted voting (40% RF, 30% LR, 30% Custom)",
-                "Probability-based ensemble decisions",
-                "Feature engineering from all models"
-            ],
-            "problems_solved": [
-                "Maximum accuracy through model combination",
-                "Reduced overfitting risk",
-                "Balanced predictions from multiple perspectives",
-                "Robust performance across different data types"
-            ],
-            "how_it_works": "Combines the predictions of all three models using soft voting with optimized weights. Random Forest gets 40% weight for complex patterns, Logistic Regression gets 30% for interpretability, and Custom Tree gets 30% for rule-based decisions. Uses probability scores for final prediction.",
-            "best_for": "Maximum accuracy, production deployment, robust predictions",
-            "limitations": [
-                "Most computationally intensive",
-                "Complex decision process",
-                "Requires all models to be trained"
-            ]
-        }
+
     ]
     
     return {"models": models}
@@ -152,7 +127,7 @@ async def get_available_models():
 @router.post("/predict", response_model=AnalysisResponse)
 async def predict_website(
     screenshot: UploadFile = File(...),
-    model: str = Form("improved", description="Model to use: 'original', 'improved', 'custom_tree', or 'ensemble'")
+    model: str = Form("improved", description="Model to use: 'original', 'improved', or 'custom_tree'")
 ):
     """
     Predict whether a website was AI-generated or human-coded
@@ -169,7 +144,7 @@ async def predict_website(
         print(f"🔍 Received model parameter: '{model}'")
         
         # Validate model selection
-        valid_models = ["original", "improved", "custom_tree", "ensemble"]
+        valid_models = ["original", "improved", "custom_tree"]
         if model not in valid_models:
             raise HTTPException(
                 status_code=400,
@@ -180,8 +155,7 @@ async def predict_website(
         model_files = {
             "original": "model.pkl",
             "improved": "improved_model.pkl", 
-            "custom_tree": "custom_tree_model.pkl",
-            "ensemble": "ensemble_model.pkl" # Added ensemble model file
+            "custom_tree": "custom_tree_model.pkl"
         }
         
         model_file = model_files[model]
@@ -263,7 +237,7 @@ async def predict_website(
 @router.post("/predict-visualization")
 async def predict_website_visualization(
     screenshot: UploadFile = File(...),
-    model: str = Form("improved", description="Model to use: 'original', 'improved', 'custom_tree', or 'ensemble'")
+    model: str = Form("improved", description="Model to use: 'original', 'improved', or 'custom_tree'")
 ):
     """
     Predict with detailed visualization breakdown
@@ -274,7 +248,7 @@ async def predict_website_visualization(
         print(f"🎯 Received visualization request with model: {model}")
         
         # Validate model parameter
-        valid_models = ["original", "improved", "custom_tree", "ensemble"]
+        valid_models = ["original", "improved", "custom_tree"]
         if model not in valid_models:
             raise HTTPException(
                 status_code=400, 

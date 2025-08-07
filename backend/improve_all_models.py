@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Comprehensive model improvement script
-Fixes: Custom tree features, improves accuracy, creates ensemble
+Fixes: Custom tree features, improves accuracy, focuses on 3 core models
+Excludes size-related features that don't identify AI websites
 """
 
 import os
@@ -9,7 +10,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import cv2
-from sklearn.ensemble import RandomForestClassifier, VotingClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.preprocessing import StandardScaler, RobustScaler
@@ -28,6 +29,22 @@ class ModelImprover:
         self.extractor = FeatureExtractor()
         self.models = {}
         self.results = {}
+        
+        # Define size-related features to exclude from ALL models
+        self.size_features = ['width', 'height', 'aspect_ratio', 'total_pixels']
+        
+    def get_meaningful_features_only(self, df):
+        """Filter out size-related features from the dataset"""
+        feature_names = self.extractor.get_feature_names()
+        
+        # Find indices of features to keep (exclude size features)
+        keep_indices = [i for i, name in enumerate(feature_names) if name not in self.size_features]
+        selected_feature_names = [feature_names[i] for i in keep_indices]
+        
+        print(f"  🚫 Excluded {len(self.size_features)} size features: {self.size_features}")
+        print(f"  ✅ Using {len(selected_feature_names)} meaningful features")
+        
+        return df.iloc[:, keep_indices], selected_feature_names, keep_indices
         
     def load_dataset_full_features(self):
         """Load dataset with ALL 43 features (not just meaningful ones)"""
@@ -106,13 +123,17 @@ class ModelImprover:
         print(f"  ✅ Successfully extracted features from {len(df)} images")
         print(f"  📈 Dataset shape: {df.shape}")
         print(f"  🎯 Class distribution: {np.bincount(labels)}")
-        print(f"  🔍 Features used: {len(self.extractor.get_feature_names())}")
+        print(f"  🔍 Features extracted: {len(self.extractor.get_feature_names())}")
         
         return df, labels, file_df
     
     def train_improved_original_model(self, X_train, X_test, y_train, y_test):
-        """Train improved Random Forest with hyperparameter tuning"""
+        """Train improved Random Forest with hyperparameter tuning (excluding size features)"""
         print("\n🌲 Training Improved Original Model (Random Forest)...")
+        
+        # Filter out size features
+        X_train_filtered, selected_feature_names, feature_mask = self.get_meaningful_features_only(X_train)
+        X_test_filtered = X_test.iloc[:, feature_mask]
         
         # Hyperparameter tuning
         param_grid = {
@@ -125,15 +146,15 @@ class ModelImprover:
         
         rf = RandomForestClassifier(random_state=42, n_jobs=-1)
         grid_search = GridSearchCV(rf, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
-        grid_search.fit(X_train, y_train)
+        grid_search.fit(X_train_filtered, y_train)
         
         best_model = grid_search.best_estimator_
         
         # Evaluate
-        y_pred = best_model.predict(X_test)
+        y_pred = best_model.predict(X_test_filtered)
         accuracy = accuracy_score(y_test, y_pred)
-        auc = roc_auc_score(y_test, best_model.predict_proba(X_test)[:, 1])
-        cv_scores = cross_val_score(best_model, X_train, y_train, cv=5, scoring='accuracy')
+        auc = roc_auc_score(y_test, best_model.predict_proba(X_test_filtered)[:, 1])
+        cv_scores = cross_val_score(best_model, X_train_filtered, y_train, cv=5, scoring='accuracy')
         
         print(f"  ✅ Training completed")
         print(f"  🔧 Best parameters: {grid_search.best_params_}")
@@ -147,7 +168,8 @@ class ModelImprover:
             'accuracy': accuracy,
             'auc_score': auc,
             'cv_scores': cv_scores,
-            'feature_names': self.extractor.get_feature_names(),
+            'feature_names': selected_feature_names,
+            'feature_mask': feature_mask,
             'best_params': grid_search.best_params_
         }
         
@@ -165,23 +187,12 @@ class ModelImprover:
         return best_model
     
     def train_high_accuracy_improved_model(self, X_train, X_test, y_train, y_test):
-        """Train high-accuracy Logistic Regression with advanced techniques"""
+        """Train high-accuracy Logistic Regression with advanced techniques (excluding size features)"""
         print("\n📈 Training High-Accuracy Improved Model (Logistic Regression)...")
         
-        # Feature selection
-        feature_names = self.extractor.get_feature_names()
-        
-        # Exclude basic properties and font features
-        exclude_features = ['width', 'height', 'aspect_ratio', 'total_pixels']
-        exclude_features.extend([name for name in feature_names if 'font' in name.lower()])
-        
-        keep_indices = [i for i, name in enumerate(feature_names) if name not in exclude_features]
-        X_train_selected = X_train.iloc[:, keep_indices]
-        X_test_selected = X_test.iloc[:, keep_indices]
-        selected_feature_names = [feature_names[i] for i in keep_indices]
-        
-        print(f"  🚫 Excluded {len(exclude_features)} features: {exclude_features}")
-        print(f"  ✅ Using {len(selected_feature_names)} selected features")
+        # Filter out size features
+        X_train_filtered, selected_feature_names, feature_mask = self.get_meaningful_features_only(X_train)
+        X_test_filtered = X_test.iloc[:, feature_mask]
         
         # Try different scaling methods
         scalers = {
@@ -197,8 +208,8 @@ class ModelImprover:
             print(f"  🔄 Testing {scaler_name}...")
             
             # Scale features
-            X_train_scaled = scaler.fit_transform(X_train_selected)
-            X_test_scaled = scaler.transform(X_test_selected)
+            X_train_scaled = scaler.fit_transform(X_train_filtered)
+            X_test_scaled = scaler.transform(X_test_filtered)
             
             # Try different balancing methods
             balancers = {
@@ -237,8 +248,8 @@ class ModelImprover:
                         best_C = C
         
         # Train final model with best parameters
-        X_train_scaled = best_scaler.fit_transform(X_train_selected)
-        X_test_scaled = best_scaler.transform(X_test_selected)
+        X_train_scaled = best_scaler.fit_transform(X_train_filtered)
+        X_test_scaled = best_scaler.transform(X_test_filtered)
         
         if best_balancer_name != 'None':
             balancer = balancers[best_balancer_name]
@@ -267,7 +278,7 @@ class ModelImprover:
         model_data = {
             'model': best_model,
             'scaler': best_scaler,
-            'feature_mask': keep_indices,
+            'feature_mask': feature_mask,
             'feature_names': selected_feature_names,
             'accuracy': accuracy,
             'auc_score': auc,
@@ -291,27 +302,31 @@ class ModelImprover:
         return best_model
     
     def train_full_feature_custom_tree(self, X_train, X_test, y_train, y_test):
-        """Train Custom Decision Tree with ALL 43 features"""
+        """Train Custom Decision Tree with meaningful features only (excluding size features)"""
         print("\n🌳 Training Full-Feature Custom Tree Model...")
         
-        # Use CustomTreeTrainer with ALL features
+        # Filter out size features
+        X_train_filtered, selected_feature_names, feature_mask = self.get_meaningful_features_only(X_train)
+        X_test_filtered = X_test.iloc[:, feature_mask]
+        
+        # Use CustomTreeTrainer with meaningful features only
         trainer = CustomTreeTrainer()
         
         # Convert pandas DataFrames to numpy arrays for custom tree
-        if hasattr(X_train, 'values'):
-            X_train_array = X_train.values
+        if hasattr(X_train_filtered, 'values'):
+            X_train_array = X_train_filtered.values
         else:
-            X_train_array = X_train
+            X_train_array = X_train_filtered
             
         if hasattr(y_train, 'values'):
             y_train_array = y_train.values
         else:
             y_train_array = y_train
             
-        if hasattr(X_test, 'values'):
-            X_test_array = X_test.values
+        if hasattr(X_test_filtered, 'values'):
+            X_test_array = X_test_filtered.values
         else:
-            X_test_array = X_test
+            X_test_array = X_test_filtered
             
         if hasattr(y_test, 'values'):
             y_test_array = y_test.values
@@ -341,10 +356,11 @@ class ModelImprover:
         print(f"  🌳 Tree depth: {trainer._get_tree_depth(model.root)}")
         print(f"  🌳 Total nodes: {trainer._count_nodes(model.root)}")
         
-        # Save model with ALL features
+        # Save model with meaningful features only
         model_data = {
             'model_type': 'CustomDecisionTree',
-            'feature_names': self.extractor.get_feature_names(),  # ALL 43 features
+            'feature_names': selected_feature_names,  # Meaningful features only
+            'feature_mask': feature_mask,
             'extractor': self.extractor,
             'scaler': None,
             'model_params': {
@@ -385,78 +401,6 @@ class ModelImprover:
         }
         
         return model
-    
-    def train_ensemble_model(self, X_train, X_test, y_train, y_test):
-        """Train Ensemble Model combining all three improved models"""
-        print("\n🎯 Training Ensemble Model...")
-        
-        # Ensure all models are trained
-        if 'original' not in self.models or 'improved' not in self.models or 'custom_tree' not in self.models:
-            print("  ❌ Error: Not all base models are trained!")
-            print(f"  Available models: {list(self.models.keys())}")
-            return None
-        
-        # Create ensemble with the three trained models
-        ensemble = VotingClassifier(
-            estimators=[
-                ('rf', self.models['original']),
-                ('lr', self.models['improved']),
-                ('dt', self.models['custom_tree'])
-            ],
-            voting='soft',
-            weights=[0.4, 0.3, 0.3]  # Give more weight to Random Forest
-        )
-        
-        # Train ensemble
-        print("  🔄 Training ensemble with all three models...")
-        try:
-            ensemble.fit(X_train, y_train)
-            print("  ✅ Ensemble training completed successfully")
-        except Exception as e:
-            print(f"  ❌ Ensemble training failed: {e}")
-            import traceback
-            traceback.print_exc()
-            return None
-        
-        # Evaluate
-        try:
-            y_pred = ensemble.predict(X_test)
-            accuracy = accuracy_score(y_test, y_pred)
-            auc = roc_auc_score(y_test, ensemble.predict_proba(X_test)[:, 1])
-            cv_scores = cross_val_score(ensemble, X_train, y_train, cv=5, scoring='accuracy')
-        except Exception as e:
-            print(f"  ❌ Ensemble evaluation failed: {e}")
-            return None
-        
-        print(f"  ✅ Training completed")
-        print(f"  📊 Test Accuracy: {accuracy:.4f}")
-        print(f"  📊 Test AUC: {auc:.4f}")
-        print(f"  📊 CV Accuracy: {cv_scores.mean():.4f} (+/- {cv_scores.std() * 2:.4f})")
-        
-        # Save model
-        model_data = {
-            'model': ensemble,
-            'accuracy': accuracy,
-            'auc_score': auc,
-            'cv_scores': cv_scores,
-            'feature_names': self.extractor.get_feature_names(),
-            'base_models': ['RandomForest', 'LogisticRegression', 'CustomDecisionTree'],
-            'voting_method': 'soft',
-            'weights': [0.4, 0.3, 0.3]
-        }
-        
-        with open('ensemble_model.pkl', 'wb') as f:
-            pickle.dump(model_data, f)
-        
-        self.models['ensemble'] = ensemble
-        self.results['ensemble'] = {
-            'accuracy': accuracy,
-            'auc': auc,
-            'cv_mean': cv_scores.mean(),
-            'cv_std': cv_scores.std()
-        }
-        
-        return ensemble
     
     def compare_models(self):
         """Compare all models and create visualization"""
@@ -535,7 +479,9 @@ class ModelImprover:
     def improve_all_models(self):
         """Main improvement pipeline"""
         print("🚀 Starting Comprehensive Model Improvement...")
-        print("⏱️  Expected time: 20-40 minutes")
+        print("⏱️  Expected time: 15-30 minutes")
+        print("🎯 Focus: Improving 3 core models (Random Forest, Logistic Regression, Custom Tree)")
+        print("🚫 Excluding: Size-related features (width, height, aspect_ratio, total_pixels)")
         
         # Load dataset with ALL features
         df, labels, file_df = self.load_dataset_full_features()
@@ -547,24 +493,24 @@ class ModelImprover:
         
         print(f"  📊 Training set: {X_train.shape[0]} samples")
         print(f"  📊 Test set: {X_test.shape[0]} samples")
-        print(f"  🔍 Features: {X_train.shape[1]} (ALL features)")
+        print(f"  🔍 Total features: {X_train.shape[1]} (will filter out size features)")
         
-        # Train all improved models
+        # Train all improved models (excluding size features)
         self.train_improved_original_model(X_train, X_test, y_train, y_test)
         self.train_high_accuracy_improved_model(X_train, X_test, y_train, y_test)
         self.train_full_feature_custom_tree(X_train, X_test, y_train, y_test)
-        self.train_ensemble_model(X_train, X_test, y_train, y_test)
         
         # Compare models
         comparison = self.compare_models()
         
         print("\n🎉 Model improvement completed successfully!")
         print("📁 Models saved:")
-        print("  - model.pkl (Improved Random Forest)")
-        print("  - improved_model.pkl (High-Accuracy Logistic Regression)")
-        print("  - custom_tree_model.pkl (Full-Feature Custom Tree)")
-        print("  - ensemble_model.pkl (Ensemble)")
+        print("  - model.pkl (Improved Random Forest - no size features)")
+        print("  - improved_model.pkl (High-Accuracy Logistic Regression - no size features)")
+        print("  - custom_tree_model.pkl (Custom Tree - no size features)")
         print("  - improved_model_comparison.png (Visualization)")
+        print("\n💡 All models now exclude size-related features that don't identify AI websites")
+        print("💡 Focus on meaningful visual features for better AI vs Human classification")
         
         return comparison
 

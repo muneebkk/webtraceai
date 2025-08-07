@@ -95,38 +95,7 @@ class ModelLoader:
                     "best_score": self.best_score,
                     "model_format": "custom_tree"
                 })
-            elif 'model_type' in model_data and model_data['model_type'] == 'VotingClassifier':
-                # Ensemble model format
-                self.model = model_data['model']
-                self.feature_names = model_data['feature_names']
-                # Create new extractor if not saved in model
-                if 'extractor' in model_data:
-                    self.extractor = model_data['extractor']
-                else:
-                    from .feature_extract import FeatureExtractor
-                    self.extractor = FeatureExtractor()
-                self.scaler = model_data.get('scaler', None)
-                self.best_score = model_data.get('best_score', 0)
-                self.model_type = 'VotingClassifier'
-                self.model_loaded = True
-                
-                # Get ensemble details
-                base_models = model_data.get('base_models', [])
-                voting_method = model_data.get('voting_method', 'soft')
-                weights = model_data.get('weights', [])
-                
-                self.model_info.update({
-                    "status": "loaded",
-                    "model_type": self.model_type,
-                    "feature_count": len(self.feature_names),
-                    "features": self.feature_names,
-                    "best_score": self.best_score,
-                    "model_format": "ensemble",
-                    "base_models": base_models,
-                    "voting_method": voting_method,
-                    "weights": weights,
-                    "description": f"Ensemble model combining {', '.join(base_models)} with {voting_method} voting"
-                })
+
             elif 'scaler' in model_data:
                 # New improved model format
                 self.model = model_data['model']

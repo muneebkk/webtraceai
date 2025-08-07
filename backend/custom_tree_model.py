@@ -71,6 +71,9 @@ class CustomDecisionTree(BaseEstimator, ClassifierMixin):
         
         # Set random seed
         np.random.seed(random_state)
+        
+        # Set required scikit-learn attributes
+        self._estimator_type = "classifier"
     
     def get_params(self, deep=True):
         """Get parameters for this estimator (scikit-learn compatibility)"""
@@ -278,6 +281,9 @@ class CustomDecisionTree(BaseEstimator, ClassifierMixin):
         if self.prune:
             self.root = self._prune_tree(self.root, X, y)
         
+        # Set required scikit-learn attributes
+        self._estimator_type = "classifier"
+        
         return self
     
     def fit_with_names(self, X: np.ndarray, y: np.ndarray, feature_names: Optional[List[str]] = None):
@@ -466,7 +472,7 @@ class CustomTreeTrainer:
             random_state=42
         )
         
-        self.model.fit(X, y, self.feature_names)
+        self.model.fit_with_names(X, y, self.feature_names)
         
         print(f"✅ Custom tree trained successfully!")
         print(f"  Tree depth: {self._get_tree_depth(self.model.root)}")
