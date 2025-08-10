@@ -48,14 +48,14 @@ Detect whether websites were created using AI tools or coded by humans using com
 
 ```bash
 # Test the model
-cd backend
+cd .\backend\tests\
 python test_model.py
 
 # Test feature extraction
 python test_feature_extractor.py
 
 # Retrain model with new data
-python train_simple_model.py
+python improve_all_models.py
 ```
 
 ## 📈 Future Enhancements
